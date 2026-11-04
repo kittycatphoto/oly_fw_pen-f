@@ -54,3 +54,6 @@ generated/
 .env.*
 *.key
 *.pem
+
+# Local decoded firmware images (vendor bytes)
+analysis/penf_3.1/
