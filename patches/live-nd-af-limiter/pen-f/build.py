@@ -8,25 +8,34 @@ hashes byte for byte, including the camera-tested package.
 """
 import argparse
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+HSL_BUILDER = ROOT / 'patches/hsl/pen-f/build.py'
 sys.path.insert(0, str(ROOT / 'tools'))
 from oly_container import parse, replace_payload, reconstruct  # noqa: E402
-
-spec_hsl = importlib.util.spec_from_file_location('hsl_build', ROOT / 'patches/hsl/pen-f/build.py')
-hsl = importlib.util.module_from_spec(spec_hsl)
-spec_hsl.loader.exec_module(hsl)
-require, executable = hsl.require, hsl.executable
 
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def executable(explicit, name, local):
+    value = explicit or shutil.which('mn10300-elf-' + name)
+    if value is None and local.is_file():
+        value = str(local)
+    require(value is not None, f'Missing MN103 {name}; supply --{name} or install mn10300-elf-{name}')
+    return str(Path(value).resolve())
 
 
 def build(args):
@@ -42,10 +51,12 @@ def build(args):
     objcopy = executable(args.objcopy, 'objcopy', toolchain / 'binutils/objcopy')
     args.out.mkdir(parents=True)
 
-    # 1. The HSL release this patch is layered on, rebuilt and checked by its own builder.
+    # 1. The HSL release this patch is layered on, rebuilt and checked by its own
+    #    builder through its command line.
     base_dir = args.out / 'base-hsl'
-    hsl.build(argparse.Namespace(stock=args.stock, out=base_dir, assembler=assembler,
-                                 linker=linker, objcopy=objcopy))
+    subprocess.run([sys.executable, str(HSL_BUILDER), '--stock', str(args.stock.resolve()),
+                    '--out', str(base_dir), '--as', assembler, '--ld', linker, '--objcopy', objcopy],
+                   check=True)
     base = (base_dir / 'install/DCOLYMP/E1229999.BIN').read_bytes()
     require(sha(base) == spec['base_package_sha256'], 'HSL base package differs')
     blocks = parse(base)
