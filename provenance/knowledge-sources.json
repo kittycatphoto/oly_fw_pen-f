@@ -22,7 +22,43 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "6bbf386e8bd759c7a9383bfb0ac4ac161c83a0ee5af6dfd47a3b77c3083c0715"
+    "sha256": "a9e6b12c8242c4537c1195452b538d729cbcece469feb4a982a3fafd4d31ef6f"
+  },
+  {
+    "path": "docs/boot/e-m10/RECOVERY.md",
+    "sources": [
+      {
+        "source_document": "research/community/cmdada/2026-11-04-intake/ANALYSIS.md",
+        "sha256": "cee857dd27378bf8b1a0674da53eb3d7eb2c6b47720153cad1d828c83b74562c"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/source-audit.json",
+        "sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/verification.json",
+        "sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430"
+      },
+      {
+        "source_document": "analysis/community_followup_20261104/cmdada-read.json",
+        "sha256": "298634e16fda3d1730bd6987fcae8e18733f66d87abcc324f78b5e958b499be8"
+      }
+    ],
+    "sha256": "afe1c4b4ca11f5b4d9ed614d28a610501c5f20ef1dcc918e1c4f8deb1dd087a4"
+  },
+  {
+    "path": "docs/boot/pen-f/FLASH_READERS.md",
+    "sources": [
+      {
+        "source_document": "docs/safety/PENF_BOOT_DUMP_QUALIFICATION.md",
+        "sha256": "f08f7ec8cc60fa52a019229b7cf35fecb4a0b246e3cde7be8830c7f06d396f65"
+      },
+      {
+        "source_document": "analysis/penf_boot_dump_20261107/native.json",
+        "sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2"
+      }
+    ],
+    "sha256": "9176e1440b150a892d1c57ea68e206104db1a0fc23975d2bf98581532a9126c8"
   },
   {
     "path": "docs/boot/pen-f/FUNCTION_MAP.md",
@@ -134,9 +170,21 @@
       {
         "source_document": "docs/safety/CMIO_AND_RUNTIME_FLASH_PROTECTION.md",
         "sha256": "bb79ba825748a6c56ff3ab6f15a5f3902ec03fc8e7dee78d0db4f95ef0b53491"
+      },
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      },
+      {
+        "source_document": "docs/safety/PENF_BOOT_DUMP_QUALIFICATION.md",
+        "sha256": "f08f7ec8cc60fa52a019229b7cf35fecb4a0b246e3cde7be8830c7f06d396f65"
+      },
+      {
+        "source_document": "analysis/penf_boot_dump_20261107/native.json",
+        "sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2"
       }
     ],
-    "sha256": "3518eb4825ee836882f18b68a3d763f7ab27e073970ce60b89ea953de95e873c"
+    "sha256": "aaa83cdf9dfe25e46dba2c2de2a73f8293f1e27b6e600906c0a229eee9583bca"
   },
   {
     "path": "docs/boot/pen-f/STARTUP.md",
@@ -193,6 +241,24 @@
       }
     ],
     "sha256": "fc0184a54407aceb134c0a05fb7adbafcb7b5ac2f5b37193a5040df5b5a0f41f"
+  },
+  {
+    "path": "docs/color/e-m10/PROCESSING.md",
+    "sources": [
+      {
+        "source_document": "research/community/cmdada/2026-11-04-intake/ANALYSIS.md",
+        "sha256": "cee857dd27378bf8b1a0674da53eb3d7eb2c6b47720153cad1d828c83b74562c"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/source-audit.json",
+        "sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/verification.json",
+        "sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430"
+      }
+    ],
+    "sha256": "59790f40e48ea0c8fa09735f33a4b76f91eb85f291b8f1f4a948c14b546fec0e"
   },
   {
     "path": "docs/color/pen-f/CAPTURE_PARAMETERS.md",
@@ -562,7 +628,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "b2e4dd8b6c8f420bbc7d2b127eaf56abf98e5c8584cc582e156a53df01e29637"
+    "sha256": "287cfcb5d7b18838e52f69baa10f4a4d90c9eeecbaad8b69bbb11fc39698d3b4"
   },
   {
     "path": "docs/features/om-5/BURST.md",
@@ -573,6 +639,32 @@
       }
     ],
     "sha256": "8799ae212fdf30087ea7eaa154a38e3571d117e05701408676cafc636d7d3add"
+  },
+  {
+    "path": "docs/features/pen-f/APERTURE_RING.md",
+    "sources": [
+      {
+        "source_document": "research/community/azqeurio/2026-11-07-intake/ANALYSIS.md",
+        "sha256": "28f9acd1673490d3d275a00bb2ec48894f8b37ceeb4c19d6395f532fba27d798"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/native.json",
+        "sha256": "bfb1f74bcc79cbe6fa27268871780c253066df1ee45c021c15acdf85f082dfb1"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/inventory.json",
+        "sha256": "1ca74087330fd750fc0de25642f552a7c02e7405bfaafbdd0639c3764277743d"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/container-check.json",
+        "sha256": "aee4448a4e309bdc7afa54f74b24fa9ea839f1d881c121283b409dfc8f52b004"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/hsl-overlap.json",
+        "sha256": "852f09f98481fe907b3b3ca4365e3cdbdae50aca74a848e5238403cd0d2ce96c"
+      }
+    ],
+    "sha256": "d10068bb694b988b8c6df89fdf15da147c2b047c39d9d853133157de5ea5547c"
   },
   {
     "path": "docs/format/CONTAINERS.md",
@@ -609,6 +701,46 @@
       }
     ],
     "sha256": "074c24080c3814b0f30b7911ee997bd8aae40a5f4bd1630297f5d72df494b312"
+  },
+  {
+    "path": "docs/protocols/om-3/TETHERING.md",
+    "sources": [
+      {
+        "source_document": "research/community/kred/2026-10-20-om3-tethering/README.original.md",
+        "sha256": "0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440"
+      },
+      {
+        "source_document": "research/community/kred/2026-10-20-om3-tethering/ANALYSIS.md",
+        "sha256": "dc6ddead74c89a17232b4601c68ae5360c0bb337f9506735d3c70139b3cf6aac"
+      },
+      {
+        "source_document": "analysis/om3_tethering_claims_20261104/native.json",
+        "sha256": "41c96f48cea14268443c5aab002e553bc75618fc72adcd2ed723141d182c28fe"
+      },
+      {
+        "source_document": "research/om3_patcher_20260929/README.md",
+        "sha256": "09426ac7eb3192dac7d1ce8bc4f2184acbd5c3950e69020cfd2f0ebb9e0430a3"
+      },
+      {
+        "source_document": "analysis/community_followup_20261104/kred-preview.json",
+        "sha256": "abe25c82f92ef0e588d1c7f20c5dc874b4aaee4290a2fa09908ea18cb5287034"
+      }
+    ],
+    "sha256": "1443789bcf4f3830da64cec7be7a488ef5c0a9cff839e2919a068d3331c4fbb7"
+  },
+  {
+    "path": "docs/protocols/pen-f/DEBUG_FILES.md",
+    "sources": [
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      },
+      {
+        "source_document": "docs/color/HSL_STORAGE_CANDIDATES.md",
+        "sha256": "d8f3cf0a1970d0e3ba86bbf448b08596dec12b3ed2d95a05b4962c9626c20387"
+      }
+    ],
+    "sha256": "c4dd2a08e794de8d0ec7395db2dbdbd90088444c164c4dfbca8702e24eef60d6"
   },
   {
     "path": "docs/protocols/pen-f/SETTINGS_BACKUP.md",
@@ -652,9 +784,31 @@
       {
         "source_document": "analysis/penf_wifi_workflow_camera_20261017/REPORT.md",
         "sha256": "2b476edf6191a6bd011f87d2290f78353b4407d1d48515abf2a7e62154456d4d"
+      },
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
       }
     ],
-    "sha256": "0553a066c036c0685b356445d0daae1307dd8196eadfc72a74e5c45f8452e949"
+    "sha256": "d34f0b5176c81d8c22275a3f6fa27ac88557017abff4add765a0936150762762"
+  },
+  {
+    "path": "docs/protocols/pen-f/WIFI_DEBUG.md",
+    "sources": [
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      },
+      {
+        "source_document": "docs/safety/PENF_BOOT_DUMP_QUALIFICATION.md",
+        "sha256": "f08f7ec8cc60fa52a019229b7cf35fecb4a0b246e3cde7be8830c7f06d396f65"
+      },
+      {
+        "source_document": "analysis/penf_boot_dump_20261107/native.json",
+        "sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2"
+      }
+    ],
+    "sha256": "d64545c2a0739f0fbef9f4c65950f995122e932de1f184bf7318f0ab7386cf82"
   },
   {
     "path": "docs/safety/CODE_SPACE.md",
@@ -672,7 +826,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "fd2043a96ee5d4b3e4911ef3c8cab048bcc0108a56e4a6a6108929464075a71e"
+    "sha256": "0bbd28d11495c21b36654f96b7bc9d8d135f130b7e67b82c90efc08cde8611d8"
   },
   {
     "path": "docs/safety/VALIDATION.md",
@@ -695,6 +849,24 @@
       }
     ],
     "sha256": "d0f4c4d757447ee4281ba64658d2a11bccc68c3f2842e91bb52affb6705c4a05"
+  },
+  {
+    "path": "docs/tooling/e-m10/PLUGINS.md",
+    "sources": [
+      {
+        "source_document": "research/community/cmdada/2026-11-04-intake/ANALYSIS.md",
+        "sha256": "cee857dd27378bf8b1a0674da53eb3d7eb2c6b47720153cad1d828c83b74562c"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/source-audit.json",
+        "sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/verification.json",
+        "sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430"
+      }
+    ],
+    "sha256": "8ab2abe312d554d892a7cf64d81ac523ca6c3419343a8b07af7b8b9e58526f36"
   },
   {
     "path": "docs/tooling/ida/README.md",
@@ -749,7 +921,7 @@
   {
     "path": "provenance/README.md",
     "sources": [],
-    "sha256": "804a885de54f9448bd7413291fc00d9ffa62b4f70336d2a9bccce9eadd7fd9d1"
+    "sha256": "b53485804532e16e1f1f309d3eaeec3a9b381b6bbe3724c66151937b8780b856"
   },
   {
     "path": "provenance/SOURCES.md",
@@ -767,6 +939,6 @@
         "sha256": "ac7244e438e5467fb725c43c44b0705b6cb16bc3311b57fd3aa271264459e7f1"
       }
     ],
-    "sha256": "5dc999edb46027f8105df2374e37ba431d928b8b29e7ec29df6a5b4d68cd8f30"
+    "sha256": "f86a51cc06e5ddf288258428086e5d273b97069d537f8f2decddfb29d84bec21"
   }
 ]

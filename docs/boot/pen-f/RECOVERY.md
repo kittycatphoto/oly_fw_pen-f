@@ -57,6 +57,19 @@ The known backend is not an automatic rollback design. Small redundant settings
 banks are not copies of the main firmware. No independent USB rescue loader or
 immutable OK-button boot ROM has been established for PEN-F.
 
+[E-M10 I reports](../e-m10/RECOVERY.md) describe separate boot stages and successful
+SD recovery, followed by a simulated update that overwrites the first stage.
+They provide a boot-dump method and useful comparison, not PEN-F recovery proof.
+
+The [stock SD debug switch](../../protocols/pen-f/WIFI_DEBUG.md) supplies a
+promising Wi-Fi route to PEN-F's existing diagnostic shell and flash readers.
+Its parameter import and shell wiring are verified offline; physical PEN-F
+operation and a boot dump remain unverified. The stock dump command is
+[not qualified as read-only](FLASH_READERS.md): its reader can perform flash
+maintenance, bypasses normal serialization and mishandles buffer exhaustion.
+It runs from main firmware and
+does not provide recovery when that environment cannot start.
+
 A separate `S122????BIN` BOOT update path and logical destination `80000000`
 exist in code. The ordinary E-file does not provide that earlier image. Its
 existence indicates writable boot-related storage; it does not identify every

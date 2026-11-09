@@ -55,8 +55,17 @@ under modeled storage.
 
 Working tethering is a contributor report. This gives a concrete precedent for
 loaded-tail code placement, not for arbitrary FF gaps or identical PEN-F recovery.
+The [tethering reference](../protocols/om-3/TETHERING.md) adds independently
+checked startup selectors. The described early out-of-range and alignment
+failures remain author reports without their failing builds or fault traces.
 
 ## Runtime and update risks are different
+
+An alternative is to extend a section's loaded end. cmdada's
+[E-M10 I loader](../tooling/e-m10/PLUGINS.md) changes two descriptor bytes to load
+a larger tail. Independent emulation confirms the additional copy under a
+modeled flash reader. This avoids relying on a tiny existing loaded suffix,
+but still requires checking destination ownership, aliases and later reloads.
 
 Executable camera code can reside in RAM. A lower-level section reload can reset
 extension state even though the stored firmware bytes never change. Using an

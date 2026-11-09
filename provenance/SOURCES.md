@@ -26,6 +26,11 @@ availability at the original host.
   `8f2fbaca454bca581e4e9e6561ac2341590bf7be4301ac7351660f1e00647131`;
   manifest SHA-256 is
   `8f520edb97995c7b5de3b43da725b33bff9a5f1ddb52d31d439a01609369505e`.
+- [kred's OM-3 tethering explanation, October 20, 2026](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/page-34#post-1886195):
+  V22 startup, live-view and transfer explanation. The supplied README SHA-256 is
+  `0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440`.
+  See the [verified protocol reference](../docs/protocols/om-3/TETHERING.md) and
+  [source/date qualifications](community-reports.json).
 
 ## Manuals and interfaces
 
@@ -43,6 +48,12 @@ availability at the original host.
 
 ## Reported recovery cases
 
+- [cmdada's E-M10 I report](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886273)
+  and [later simulated bootloader overwrite](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886391),
+  October 21, 2026. [Source snapshot](https://github.com/cmdada/em10-fw/tree/6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1)
+  contains the plugin loader and main-entry system emulator, but not the later
+  preboot simulator or original boot dumps. See the [qualified summary](../docs/boot/e-m10/RECOVERY.md)
+  and [source identities](community-reports.json).
 - [E-M1X recovery discussion](https://www.dpreview.com/forums/threads/how-to-fix-bricked-om-d-e-m1x.4707099/).
 - [E-M5 recovery discussion](https://cameraderie.org/threads/e-m5-bricked-and-now-unbricked.60619/).
 
@@ -50,3 +61,20 @@ These reports describe successful recovery in particular failure states. They do
 not identify PEN-F's reset code or prove that every failed main-image update is
 recoverable. The [recovery reference](../docs/boot/pen-f/RECOVERY.md) separates those
 reports from native updater evidence.
+
+## Stock Wi-Fi debug access
+
+- [Enduity's SD-file method](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1888641),
+  November 1, 2026: reports an open Wi-Fi network and debug console on stock
+  E-M5 III 1.7 using `PARAMDT/CP000001.CSV` and parameter `F971`.
+- [Cmdada's startup-gate finding](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886911),
+  October 24, 2026: E-M10 debug parameter, stored network credentials and port-23
+  shell; proposes forcing the getter with a one-byte firmware patch.
+- [PhotoDmiK's F981 observation](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1888681),
+  November 2, 2026: identifies a second nearby parameter. PEN-F code independently
+  maps it to RAM diagnostic capture.
+
+These posts were read from a supplied saved page, whose identity and exact
+timestamps are recorded in [community-reports.json](community-reports.json).
+The [debug reference](../docs/protocols/pen-f/WIFI_DEBUG.md) separates contributor
+hardware reports from the stock-image and native-emulation checks.

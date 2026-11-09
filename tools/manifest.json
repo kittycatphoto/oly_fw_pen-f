@@ -6,15 +6,22 @@
     "tools/compare_color_generations.py",
     "tools/compare_color_profile_defaults.py",
     "tools/compare_external_flash.py",
+    "tools/em10_dump_probe.py",
+    "tools/em10_source_audit.py",
     "tools/em1ii_boot_audit.py",
     "tools/ep7_flash_gpio_probe.py",
     "tools/historical_hack_audit.py",
     "tools/ida/prepare.py",
     "tools/ida/wine.py",
     "tools/oly_container.py",
+    "tools/oly_release_inspect.py",
     "tools/om3_code_space_audit.py",
+    "tools/om3_preview_probe.py",
+    "tools/om3_tethering_probe.py",
     "tools/om5_image_pool_probe.py",
     "tools/om_firmware_catalog.py",
+    "tools/penf_aperture_ring_probe.py",
+    "tools/penf_boot_dump_probe.py",
     "tools/penf_boot_sd_mount.py",
     "tools/penf_capture_readiness_probe.py",
     "tools/penf_code_space_load_probe.py",
@@ -34,6 +41,7 @@
     "tools/penf_profile_context_probe.py",
     "tools/penf_repack_preflight.py",
     "tools/penf_replay_compare.py",
+    "tools/penf_sd_debug_probe.py",
     "tools/penf_sd_path_probe.py",
     "tools/penf_section3_layout_probe.py",
     "tools/penf_settings_backup_probe.py",
@@ -197,8 +205,8 @@
     },
     {
       "path": "docs/tooling/EMULATOR.md",
-      "sha256": "556afc01cf22061866fded33ddda3a6611a30d98141f1fdce57d7b4e6cd49481",
-      "bytes": 6195,
+      "sha256": "883a35c74b2ebf16f19d3614dc69396062a7e7d6cc12e5f5ffb05760ed881a9f",
+      "bytes": 6404,
       "original_source": {
         "path": "docs/tooling/EMULATOR.md",
         "sha256": "c40b741a7ff2f59d38d8b36f2defa8d6b3c42eeec68a2146e0370911bb724608"
@@ -971,8 +979,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "0231e59b89b9940fd89a8959e44ed8540f6064da184d7a7e40195609389e39af",
-      "bytes": 8267,
+      "sha256": "1d311c811cfc23cac5103a5a93b278af5152772941294ce5f29dc7c5f6b6a150",
+      "bytes": 10068,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1034,6 +1042,36 @@
         "penf_hsl_context_probe",
         "penf_probe",
         "penf_repack_preflight"
+      ],
+      "entry_point": true
+    },
+    {
+      "path": "tools/em10_dump_probe.py",
+      "sha256": "325b8e8feb31e01d04583d23169f98a128c42e5f24abb616ce81cfb800a2bebc",
+      "bytes": 8419,
+      "original_source": {
+        "path": "tools/em10_dump_probe.py",
+        "sha256": "325b8e8feb31e01d04583d23169f98a128c42e5f24abb616ce81cfb800a2bebc"
+      },
+      "adapted": false,
+      "local_imports": [
+        "penf_boot_emulator",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
+    },
+    {
+      "path": "tools/em10_source_audit.py",
+      "sha256": "b4b7ae79e34457d8778fbe990096e9e0d12735366dd042211f2cc1449eced4dc",
+      "bytes": 5608,
+      "original_source": {
+        "path": "tools/em10_source_audit.py",
+        "sha256": "b4b7ae79e34457d8778fbe990096e9e0d12735366dd042211f2cc1449eced4dc"
+      },
+      "adapted": false,
+      "local_imports": [
+        "oly_container"
       ],
       "entry_point": true
     },
@@ -1128,8 +1166,8 @@
     },
     {
       "path": "tools/inputs.json",
-      "sha256": "9396f1fab069270809aa8db5744c4d747076dc61d05d90eab655df0bc49ee166",
-      "bytes": 8136,
+      "sha256": "206dbd37250fbccde62a6975c302fd9fcd3dae36edbfd98aaf8d402eb2a8c117",
+      "bytes": 11989,
       "origin": "original documentation, fixture or utility"
     },
     {
@@ -1159,6 +1197,18 @@
       "original_source": {
         "path": "tools/oly_container.py",
         "sha256": "ab842e186049074848a24dda432e8a5b85d52390fd22af9d059bf630def9cb6b"
+      },
+      "adapted": false,
+      "local_imports": [],
+      "entry_point": true
+    },
+    {
+      "path": "tools/oly_release_inspect.py",
+      "sha256": "3ab025e9ede0f6070207850e74c6b5999f664fe0e4a381b801928b769d219ec3",
+      "bytes": 5362,
+      "original_source": {
+        "path": "tools/oly_release_inspect.py",
+        "sha256": "3ab025e9ede0f6070207850e74c6b5999f664fe0e4a381b801928b769d219ec3"
       },
       "adapted": false,
       "local_imports": [],
@@ -1214,6 +1264,38 @@
         "oly_container"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/om3_preview_probe.py",
+      "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d",
+      "bytes": 6790,
+      "original_source": {
+        "path": "tools/om3_preview_probe.py",
+        "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d"
+      },
+      "adapted": false,
+      "local_imports": [
+        "om3_tethering_probe",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
+    },
+    {
+      "path": "tools/om3_tethering_probe.py",
+      "sha256": "caa29c3de0302a8a05158f807c5404b4e538527c0cdf82332fdec027e170ae0d",
+      "bytes": 8377,
+      "original_source": {
+        "path": "tools/om3_tethering_probe.py",
+        "sha256": "caa29c3de0302a8a05158f807c5404b4e538527c0cdf82332fdec027e170ae0d"
+      },
+      "adapted": false,
+      "local_imports": [
+        "penf_boot_emulator",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/om5_burst_audit.py",
@@ -1327,6 +1409,22 @@
       "adapted": false,
       "local_imports": [],
       "entry_point": false
+    },
+    {
+      "path": "tools/penf_aperture_ring_probe.py",
+      "sha256": "33c1a2297e8415e261d28974a754630f95c3ca564e54ff8f7f5446505f2ea129",
+      "bytes": 10232,
+      "original_source": {
+        "path": "tools/penf_aperture_ring_probe.py",
+        "sha256": "33c1a2297e8415e261d28974a754630f95c3ca564e54ff8f7f5446505f2ea129"
+      },
+      "adapted": false,
+      "local_imports": [
+        "oly_release_inspect",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/penf_boot_after_alex.py",
@@ -1552,6 +1650,22 @@
         "penf_emulator"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/penf_boot_dump_probe.py",
+      "sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5",
+      "bytes": 14219,
+      "original_source": {
+        "path": "tools/penf_boot_dump_probe.py",
+        "sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5"
+      },
+      "adapted": false,
+      "local_imports": [
+        "penf_diagnostic_lifetime_probe",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/penf_boot_emulator.py",
@@ -2779,6 +2893,22 @@
         "penf_landmarks"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/penf_sd_debug_probe.py",
+      "sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba",
+      "bytes": 12628,
+      "original_source": {
+        "path": "tools/penf_sd_debug_probe.py",
+        "sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba"
+      },
+      "adapted": false,
+      "local_imports": [
+        "penf_emulator",
+        "penf_landmarks",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/penf_sd_path_probe.py",
