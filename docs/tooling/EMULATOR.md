@@ -9,6 +9,9 @@ camera emulator.
 For a complementary system model, see cmdada's
 [E-M10 I emulator and plugin work](e-m10/PLUGINS.md). It reaches a rendered GUI
 with modeled peripherals; its published revision also begins at main, not reset.
+For interactive menus across newer models, see [flatpanda's om-emu](OM_EMU.md)
+and the [PEN-F editor integration](pen-f/OM_EMU.md). That tool runs selected
+firmware services with modeled hardware rather than a complete reset boot.
 
 ## Build
 
@@ -33,8 +36,10 @@ only the pinned original or known patched content. Subsequent builds may omit
 manifest records configuration and source/binary hashes.
 
 GNU sources retain their upstream notices. The native wrapper
-[mn103_runner.c](../../tools/mn103_runner.c) is GPL-3.0-or-later. Preserve the
-corresponding source and license obligations if distributing a built engine.
+[mn103_runner.c](../../tools/mn103_runner.c), simulator patch and
+[preparation script](../../tools/prepare_mn103_sim.py) are GPL-3.0-or-later.
+Preserve the corresponding source and license obligations if distributing a
+built engine. See [licenses and attribution](../../RIGHTS-AND-PROVENANCE.md).
 
 ## Input and execution contract
 
