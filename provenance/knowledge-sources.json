@@ -22,7 +22,7 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "2deae4cd74577d47c7176a208a36847e7976346dec254ec40212091af5361a80"
+    "sha256": "a201983163606255cece83fc2a9f1f8fd4a8412c5d10b7585c3bff734a9e42b4"
   },
   {
     "path": "docs/boot/e-m10/RECOVERY.md",
@@ -628,7 +628,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "287cfcb5d7b18838e52f69baa10f4a4d90c9eeecbaad8b69bbb11fc39698d3b4"
+    "sha256": "ff9b9fbc6dffc13b3bf96a3ca8cc6dbe9450ea04225a86b90a5eae7c9649e75c"
   },
   {
     "path": "docs/features/om-5/BURST.md",
@@ -701,32 +701,6 @@
       }
     ],
     "sha256": "074c24080c3814b0f30b7911ee997bd8aae40a5f4bd1630297f5d72df494b312"
-  },
-  {
-    "path": "docs/protocols/om-3/TETHERING.md",
-    "sources": [
-      {
-        "source_document": "research/community/kred/2026-10-20-om3-tethering/README.original.md",
-        "sha256": "0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440"
-      },
-      {
-        "source_document": "research/community/kred/2026-10-20-om3-tethering/ANALYSIS.md",
-        "sha256": "dc6ddead74c89a17232b4601c68ae5360c0bb337f9506735d3c70139b3cf6aac"
-      },
-      {
-        "source_document": "analysis/om3_tethering_claims_20261104/native.json",
-        "sha256": "41c96f48cea14268443c5aab002e553bc75618fc72adcd2ed723141d182c28fe"
-      },
-      {
-        "source_document": "research/om3_patcher_20260929/README.md",
-        "sha256": "09426ac7eb3192dac7d1ce8bc4f2184acbd5c3950e69020cfd2f0ebb9e0430a3"
-      },
-      {
-        "source_document": "analysis/community_followup_20261104/kred-preview.json",
-        "sha256": "abe25c82f92ef0e588d1c7f20c5dc874b4aaee4290a2fa09908ea18cb5287034"
-      }
-    ],
-    "sha256": "1443789bcf4f3830da64cec7be7a488ef5c0a9cff839e2919a068d3331c4fbb7"
   },
   {
     "path": "docs/protocols/pen-f/DEBUG_FILES.md",
@@ -826,7 +800,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "0bbd28d11495c21b36654f96b7bc9d8d135f130b7e67b82c90efc08cde8611d8"
+    "sha256": "34703a775063f8de75ff0bce496c72b47cee21400b594412a8fb4f9231b1eb14"
   },
   {
     "path": "docs/safety/VALIDATION.md",
@@ -991,6 +965,6 @@
         "sha256": "ac7244e438e5467fb725c43c44b0705b6cb16bc3311b57fd3aa271264459e7f1"
       }
     ],
-    "sha256": "7c40929f84611fb682be768b8b1cd86e9156ddd0e10c094ae797210ddd62e462"
+    "sha256": "da91a629b730a5e4c416bc439a18cdb9ee3c9192546f73d66d1daa3bc0554d14"
   }
 ]

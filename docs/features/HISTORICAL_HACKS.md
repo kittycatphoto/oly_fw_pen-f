@@ -40,15 +40,6 @@ E-M1 II, E-M1 III, E-M5 II/III, E-M10 II/III, E-PL9 and PEN-F. A textual E-M1 II
 and source paths are in the [firmware inventory](../../provenance/firmware-inventory.json).
 Not every branch in this wider set has the deeper native-context tests above.
 
-The independently reconstructed OM-3 V22 tethering patch changes 3,555 decoded
-main bytes in 35 guarded edits, including 3,380 changed bytes in three padded
-regions. It is substantial added code, with a reported OM-1 II porting origin.
-The contributor reports working USB live view and recovery from a failed
-experiment. Those reports do not supply the failed image or a complete recovery
-trace. Its [code-space layout](../safety/CODE_SPACE.md) is independently analyzed.
-The [OM-3 tethering reference](../protocols/om-3/TETHERING.md) explains the
-startup selectors and protocol pieces, with attributed reports and native checks.
-
 ## E-M1 III 1.2 header defect
 
 One mirrored E-M1 III 1.2 package has malformed metadata in its fifth component:
@@ -61,6 +52,5 @@ observed header and trailer exactly. This is evidence of a repacking bug, not
 proof that a camera bricked or safely ignored it. A checksum check must therefore
 be accompanied by exact metadata and unchanged-component comparisons.
 
-Tools: [historical_hack_audit.py](../../tools/historical_hack_audit.py) and
-[om3_code_space_audit.py](../../tools/om3_code_space_audit.py).
+Tools: [historical_hack_audit.py](../../tools/historical_hack_audit.py).
 Public source collection: [xdel Olympus firmware](http://xdel.ru/downloads/olympus-firmware/).

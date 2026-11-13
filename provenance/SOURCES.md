@@ -36,16 +36,6 @@ availability at the original host.
 - [LightSnowDev camera documentation, archived](https://web.archive.org/web/20190818064449/https://lightsnowdev.com/blog/olympus-camera-documentation/#more-210).
 - [xdel Olympus collection](http://xdel.ru/downloads/olympus-firmware/): stock,
   modified firmware and historical tools. Hashes distinguish duplicate mirrors.
-- [OM-3 V22 patcher by kred](https://mega.nz/folder/XXoFAJzY#CJLgZ0b_NDBfFnOjJVDbQQ):
-  USB live-view/tethering source and patch manifest. The inspected archive SHA-256 is
-  `8f2fbaca454bca581e4e9e6561ac2341590bf7be4301ac7351660f1e00647131`;
-  manifest SHA-256 is
-  `8f520edb97995c7b5de3b43da725b33bff9a5f1ddb52d31d439a01609369505e`.
-- [kred's OM-3 tethering explanation, October 20, 2026](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/page-34#post-1886195):
-  V22 startup, live-view and transfer explanation. The supplied README SHA-256 is
-  `0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440`.
-  See the [verified protocol reference](../docs/protocols/om-3/TETHERING.md) and
-  [source/date qualifications](community-reports.json).
 
 ## Manuals and interfaces
 

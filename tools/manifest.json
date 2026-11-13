@@ -15,9 +15,6 @@
     "tools/ida/wine.py",
     "tools/oly_container.py",
     "tools/oly_release_inspect.py",
-    "tools/om3_code_space_audit.py",
-    "tools/om3_preview_probe.py",
-    "tools/om3_tethering_probe.py",
     "tools/om5_image_pool_probe.py",
     "tools/om_emu_overlay.py",
     "tools/om_emu_penf_editor.mjs",
@@ -1235,70 +1232,6 @@
         "penf_sd_activation_audit"
       ],
       "entry_point": false
-    },
-    {
-      "path": "tools/om3_code_space_audit.py",
-      "sha256": "d83390e4e793c9ef62f06207461cbe9700a4eb4df150add104e51aaf9a2df806",
-      "bytes": 14625,
-      "original_source": {
-        "path": "tools/om3_code_space_audit.py",
-        "sha256": "3c144d002219a9a8ab713408359c4b528961f99dd29698e16b96937a94faa0d0"
-      },
-      "adapted": true,
-      "local_imports": [
-        "oly_container",
-        "om3_patch_audit",
-        "penf_code_space_audit",
-        "penf_emulator",
-        "penf_probe"
-      ],
-      "entry_point": true
-    },
-    {
-      "path": "tools/om3_patch_audit.py",
-      "sha256": "ae55e8fbf1d4ef92c0909fdbf8dad1ed37691d2faf24747a8bb5085fdbd6027c",
-      "bytes": 11273,
-      "original_source": {
-        "path": "tools/om3_patch_audit.py",
-        "sha256": "3bf7b1ab37f85f4311d37a43df6ef4b3cab6f9b94cb79f4dfd65c2ffae55bc13"
-      },
-      "adapted": true,
-      "local_imports": [
-        "oly_container"
-      ],
-      "entry_point": false
-    },
-    {
-      "path": "tools/om3_preview_probe.py",
-      "sha256": "71d45e315fc3ccac5fbcd733152316e6d589dc9f01bf31be30df4fc18dbcf5ee",
-      "bytes": 6943,
-      "original_source": {
-        "path": "tools/om3_preview_probe.py",
-        "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d"
-      },
-      "adapted": true,
-      "local_imports": [
-        "om3_tethering_probe",
-        "penf_emulator",
-        "penf_probe"
-      ],
-      "entry_point": true
-    },
-    {
-      "path": "tools/om3_tethering_probe.py",
-      "sha256": "5bb4ac5307370d982db81e49bf3d2597cb4e111ac2461668305a8ed13021af7f",
-      "bytes": 8530,
-      "original_source": {
-        "path": "tools/om3_tethering_probe.py",
-        "sha256": "caa29c3de0302a8a05158f807c5404b4e538527c0cdf82332fdec027e170ae0d"
-      },
-      "adapted": true,
-      "local_imports": [
-        "penf_boot_emulator",
-        "penf_emulator",
-        "penf_probe"
-      ],
-      "entry_point": true
     },
     {
       "path": "tools/om5_burst_audit.py",
