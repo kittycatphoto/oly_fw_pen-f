@@ -15,7 +15,7 @@ camera with the same processor.
 | Other image effects | [Grain](color/pen-f/GRAIN.md) · [Sharpening](color/pen-f/SHARPENING.md) · [Creative shading](color/pen-f/SHADING.md) |
 | Other camera features | [Silent burst and Pro Capture](features/om-5/BURST.md) · [Panasonic aperture rings](features/pen-f/APERTURE_RING.md) · [External flash](features/FLASH.md) · [Published firmware hacks](features/HISTORICAL_HACKS.md) · [PEN-F Multiple Exposure and Live ND](features/pen-f/MULTIPLE_EXPOSURE.md) · [PEN-F AF limiter and custom-menu rows](features/pen-f/AF_LIMITER.md) |
 | Modification techniques | [Code placement](safety/CODE_SPACE.md) · [Validation](safety/VALIDATION.md) · [Resource graphics](tooling/pen-f/RESOURCES.md) · [MN103 native-call harness](tooling/EMULATOR.md) · [Interactive om-emu](tooling/OM_EMU.md) · [PEN-F editor probe](tooling/pen-f/OM_EMU.md) |
-| Source builds | [PEN-F HSL](../patches/hsl/pen-f/README.md) · [PEN-F HSL + Live ND + AF Limiter](../patches/live-nd-af-limiter/pen-f/README.md) · [IDA/MN103 setup and automation](tooling/ida/README.md) |
+| Source builds | [PEN-F HSL](../patches/hsl/pen-f/README.md) · [PEN-F HSL + Live ND + AF Limiter](../patches/live-nd-af-limiter/pen-f/README.md) · [PEN-F films v1.1](../patches/films/pen-f/README.md) · [IDA/MN103 setup and automation](tooling/ida/README.md) |
 
 For address-level PEN-F 3101 work, use the [startup function map](boot/pen-f/FUNCTION_MAP.md),
 [settings and structure reference](color/pen-f/STRUCTURES.md), and

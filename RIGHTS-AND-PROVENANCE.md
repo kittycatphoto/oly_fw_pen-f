@@ -18,6 +18,11 @@ relicensed.
 - [Value lettering](patches/hsl/pen-f/value-pixels.txt) derives from DejaVu
   Sans Condensed. Its existing [DejaVu/Bitstream notice](LICENSES/DejaVu.txt)
   is retained with the artwork; it does not license the surrounding firmware.
+- The film looks in [patches/films/pen-f/data](patches/films/pen-f/data) (names, colour, tone and WB
+  values, split-toning colours) and the curve / split / tone formulas the films code reimplements come from
+  [caduceus-om3](https://github.com/androidfanman/caduceus-om3) (Copyright 2026 androidfanman, Apache-2.0,
+  itself based on cakelesscoder/caduceus-ep7). Its [NOTICE](LICENSES/caduceus-om3-NOTICE.txt) is retained.
+  Film names are trademarks of their owners; the looks are interpretations.
 - External research and firmware identities retain their attribution in
   [provenance](provenance/README.md). Source links do not place the linked
   work under this repository's license.
