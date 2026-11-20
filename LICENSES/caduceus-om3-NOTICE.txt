@@ -1,0 +1,26 @@
+Caduceus for OM-3 — on-camera colour editing for the OM SYSTEM OM-3 (firmware 1.1), part of the Caduceus family
+Copyright 2026 androidfanman
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository contains no OM Digital Solutions / Olympus firmware. The patcher (firmware/patch.py) works on the
+official firmware file that each user downloads themselves; releases/*/patch.json hold only the bytes this project writes
+(its own code, hooks and pointers to that code).
+
+Based on Caduceus (cakelesscoder/caduceus-ep7, Apache-2.0, Copyright 2026 cakelesscoder), firmware patches for the
+Olympus PEN E-P7: the on-camera look editor design, the BUNDLES.BIN slot layout (firmware/vendor/
+caduceus-bundles-layout.json), the Caduceus Control Panel web app (webapp/, built into looklab/), to which this project adds the OM-3 mode
+(webapp/src/om3.ts, om3names.ts and the OM-3 parts of main.ts, preview.ts and pack.ts), and the official-firmware
+download request in patch.py.
+
+Sample photos in webapp/public/samples are public domain (CC0 1.0); see webapp/public/samples/CREDITS.md.
+
+The Control Panel's OM-3 mode loads "OM3 Label Condensed", a renamed ASCII subset of DejaVu Sans Condensed (Bitstream
+Vera licence; DejaVu changes public domain), to draw profile-name pictures; see webapp/public/fonts/FONT-LICENSE.txt.
+
+Developer tools in tools/emulator drive om-emu (github.com/flatpanda/om-emu), which is not included and keeps its
+own licence.
+
+"OM SYSTEM", "Olympus" and "OM-3" are trademarks of their owners, as are the film names used for the starter looks
+(Fujifilm, Kodak and others). The looks are interpretations, not the manufacturers' own. Not affiliated with OM Digital
+Solutions, Fujifilm or Kodak.

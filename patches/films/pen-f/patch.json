@@ -1,0 +1,863 @@
+{
+ "model": "PEN-F",
+ "firmware": "3.1 build 3101",
+ "release": "films-v1.1-20261119",
+ "base_release": "alpha-20261017",
+ "cpu_base": "0x60021020",
+ "stock_sha256": "77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c",
+ "base_package_sha256": "4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717",
+ "base_main_sha256": "850936e7fa5d9c089f054385dd0bbcc310b64285c784a5da3ab347173730d12e",
+ "main_sha256": "5ff49380c0507a363be044a4efd6ac870addb9c0477177f91e328ed740f005fe",
+ "osd_sha256": "f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c",
+ "package_sha256": "88cf17cc2f091b8adc89e9946943373698e33aa5606b3187a9a6d84c8ba13170",
+ "package_bytes": 44433408,
+ "stock_restore_sha256": "e13f9813d01d15441082ed907966aec54356d70ba0f75ae9b6c2b259ff01f26a",
+ "films": [
+  {
+   "name": "Gold 200",
+   "wb_shift": [
+    4,
+    0
+   ]
+  },
+  {
+   "name": "Kodachrome 64",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Portra 800",
+   "wb_shift": [
+    2,
+    0
+   ]
+  },
+  {
+   "name": "CineStill 800T",
+   "wb_shift": [
+    -2,
+    0
+   ]
+  },
+  {
+   "name": "Ektar 100",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Ultramax 400",
+   "wb_shift": [
+    1,
+    0
+   ]
+  },
+  {
+   "name": "Pro 400H",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Velvia 50",
+   "wb_shift": [
+    0,
+    -1
+   ]
+  },
+  {
+   "name": "Superia 400",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "ColorPlus 200",
+   "wb_shift": [
+    3,
+    0
+   ]
+  },
+  {
+   "name": "CineStill 400D",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Fuji C200",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Ektachrome E100",
+   "wb_shift": [
+    -1,
+    0
+   ]
+  },
+  {
+   "name": "Reala 100",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Provia 100F",
+   "wb_shift": [
+    -1,
+    0
+   ]
+  },
+  {
+   "name": "Vision3 250D",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Fuji Eterna",
+   "wb_shift": [
+    1,
+    0
+   ]
+  },
+  {
+   "name": "Astia 100F",
+   "wb_shift": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "Agfa Ultra 100",
+   "wb_shift": [
+    0,
+    -1
+   ]
+  }
+ ],
+ "third_party_data": "Film looks and split-toning colours from caduceus-om3 (androidfanman and contributors), Apache-2.0; see NOTICE.",
+ "main_ranges": [
+  {
+   "name": "af_limiter_60207312",
+   "feature": "af_limiter",
+   "address": "0x60207312",
+   "bytes": 2,
+   "before_sha256": "512f843c7b45913b2109e87cb29cc3857d2dcb48a02d304515e1e5eabd64bd29",
+   "after_sha256": "04b2bc61031e5e4002c21ef9b7be1dd338dd6757e2b90a5b956b7603bca5a3af",
+   "after": "c001",
+   "purpose": "Custom Menu A visible-row list (.data init, RAM 61619052): Focus Ring 38 -> AF Limiter 448"
+  },
+  {
+   "name": "live_nd_af_limiter_60254850",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60254850",
+   "bytes": 7,
+   "before_sha256": "d588ac1c2d8c10039025196ce251beebb62646abd4618ee18a8fc87c8536dd2e",
+   "after_sha256": "8fad9e179b2b4d5a3ffc4714638ee12c0cfbbc62b60823857ea945c39bba0345",
+   "after": "dd547fd8000004",
+   "purpose": "capture EXIF writer (ME on): \"first |= 2\" -> H6 (keeps flag, second value = Frame) (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60307d3f",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60307d3f",
+   "bytes": 8,
+   "before_sha256": "0bb1033bf89e10bc66cdba16879a7899b8720bdaffce2af67e60b6b1048e1796",
+   "after_sha256": "16ca31bcf617d34c7e3cdafe7c17eba57855a3f988d9885af500161cc2c638cd",
+   "after": "dd8d8274000000cb",
+   "purpose": "Bayer_MultiExp: handle 4 copy -> H3 (handles 5..8 only when count > 4) (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_6037d8e8",
+   "feature": "live_nd_af_limiter",
+   "address": "0x6037d8e8",
+   "bytes": 8,
+   "before_sha256": "680f4fcd95987ba1f1a9474ca3b6d113cff0c893b694f40a6b9c41e65b226b72",
+   "after_sha256": "11cb4b56d8842f04a8da6d78a6020711abc2fa65ce5fc9b17b9c78384f89a014",
+   "after": "ac7e426003000000",
+   "purpose": "rule 0 (15258==1): map, count 3 (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_6037d8f8",
+   "feature": "live_nd_af_limiter",
+   "address": "0x6037d8f8",
+   "bytes": 8,
+   "before_sha256": "680f4fcd95987ba1f1a9474ca3b6d113cff0c893b694f40a6b9c41e65b226b72",
+   "after_sha256": "11cb4b56d8842f04a8da6d78a6020711abc2fa65ce5fc9b17b9c78384f89a014",
+   "after": "ac7e426003000000",
+   "purpose": "rule 1 (15206==1): map, count 3 (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_603a1654",
+   "feature": "live_nd_af_limiter",
+   "address": "0x603a1654",
+   "bytes": 4,
+   "before_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+   "after_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+   "after": "00000000",
+   "purpose": "rule set 448 (15210 == 1 -> 1->0, greys the row): rule count 1 -> 0"
+  },
+  {
+   "name": "live_nd_af_limiter_603e1c18",
+   "feature": "live_nd_af_limiter",
+   "address": "0x603e1c18",
+   "bytes": 4,
+   "before_sha256": "e1db99fb368543377be00a99075e7325ee8374771c6c8c1c93abe17987a5cf65",
+   "after_sha256": "7b389605390c0ef0e8beb9d4efc210d50013261efad67ee08b62fa8af9d20085",
+   "after": "a87e4260",
+   "purpose": "Frame descriptor: list pointer (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_603e1c20",
+   "feature": "live_nd_af_limiter",
+   "address": "0x603e1c20",
+   "bytes": 2,
+   "before_sha256": "99be5efb88ca2013bd8e4eb035fd42d5245468fe9afa70d8ba9c1c419a48c4e8",
+   "after_sha256": "c0ba8a33ac67f44abff5984dfbb6f56c46b880ac2b86e1f23e7fa9c402c53ae7",
+   "after": "0400",
+   "purpose": "Frame descriptor: list length 2 -> 4"
+  },
+  {
+   "name": "live_nd_af_limiter_603e2830",
+   "feature": "live_nd_af_limiter",
+   "address": "0x603e2830",
+   "bytes": 20,
+   "before_sha256": "7172bfe798f9f09b0b8ce009cf3169fb28d77a15fe12dc70499fd50cf53514a2",
+   "after_sha256": "b74eba8419cbc0ad853a009e31bf7b31ae572acd6d594654b5a030d0382b801a",
+   "after": "c001800078f13d60000000000400010000010000",
+   "purpose": "setting 448 descriptor: value list {0,1,2,3} (stock list at 603df178), 4 bytes"
+  },
+  {
+   "name": "live_nd_af_limiter_60427e78",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60427e78",
+   "bytes": 48,
+   "before_sha256": "80a76a18acf8cb64fec3a659ffc4bab4a87cd9a6fde4dab2161a8751d136c9d2",
+   "after_sha256": "7f56dc21cac7f1d2bd234a15d831f9205d1af478a1a0a00106497aca1759691a",
+   "after": "000000000400ae05a412f9600200000004002a00a412f9600400000004009705a412f9600800000004006e07a412f960",
+   "purpose": "GUI option array A: Off / 2f / 4f / 8f (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60427ea8",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60427ea8",
+   "bytes": 4,
+   "before_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+   "after_sha256": "061ee3cb73b2bb699b8235797b37d830853a5d28ef836d8f389ff01fac641474",
+   "after": "00020408",
+   "purpose": "Frame value list {0,2,4,8} (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60427eac",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60427eac",
+   "bytes": 12,
+   "before_sha256": "8688d249e9d047b4fc2fb89ce05afe9ec89252ffccdd969de6eef260dd7ffb21",
+   "after_sha256": "5d25cde1e455405ecc481e2b897dd92166af0d1193b34ad31a5a01d412e61aad",
+   "after": "020000000400000008000000",
+   "purpose": "force-off map {2->0, 4->0, 8->0} (HSL layout)"
+  },
+  {
+   "name": "af_limiter_60427fac",
+   "feature": "af_limiter",
+   "address": "0x60427fac",
+   "bytes": 81,
+   "before_sha256": "b1d97d7cbbb586b86d0e71c9fd48d8aa79cecfffee145ed7caf94969375e5e27",
+   "after_sha256": "48edd8119838de691b78f0105d0abf1c6ce371446599f0f287472b57cb801f7a",
+   "after": "000000000400ae05e4f1f4600100000005000000dc7f4260020000000500000020fcf46003000000050000001cfcf460332f34004146204c696d69746572004146206661722072616e6765206f6e6c7900",
+   "purpose": "AF Limiter options (Off/3/4/1/2/1/4) + title/help text, section-2 tail"
+  },
+  {
+   "name": "af_limiter_6047ef38",
+   "feature": "af_limiter",
+   "address": "0x6047ef38",
+   "bytes": 10,
+   "before_sha256": "9ae9beca393877e1c003bb7171c7b41e55350f4cb9b655675fcc389bbd653922",
+   "after_sha256": "f903847c6fb70bf5a324aca6246605f4859927296e27833df615fbe7935df105",
+   "after": "dd88d8b5000004cbcbcb",
+   "purpose": "fcs_sub_iaf_set_lens_pos_info join: call H7 (limit POS_NEAR), then stock debug test"
+  },
+  {
+   "name": "films_split_toning_604f6139",
+   "feature": "films_split_toning",
+   "address": "0x604f6139",
+   "bytes": 7,
+   "before_sha256": "30e5eee9c50d4a376eaa9604645d83337e528b11443718acd9a98172d43abb14",
+   "after_sha256": "f87cbc71661d0677bc89ba33d360707916f2c83905ea8ed6f1b94a954f239cc1",
+   "after": "dc643f5800cbcb",
+   "purpose": "v1.1b: RGB stage cache-hit skip -> jmp st_gate (single-curve requests always copy)"
+  },
+  {
+   "name": "films_split_toning_604f62dc",
+   "feature": "films_split_toning",
+   "address": "0x604f62dc",
+   "bytes": 6,
+   "before_sha256": "c1b75dee922176f8e792edc2da7243d9182ae73e0261e40649b2b2846b65c1d9",
+   "after_sha256": "f1d7c7f31e1d148b1c5592e4f44e7a3cbce4ed6df4461b89c9e9642e1411d75a",
+   "after": "dce43d5800cb",
+   "purpose": "v1.1b: RGB stage copier join -> jmp st_join (split toning bend, upload bits)"
+  },
+  {
+   "name": "films_blacks_whites_604f85e8",
+   "feature": "films_blacks_whites",
+   "address": "0x604f85e8",
+   "bytes": 7,
+   "before_sha256": "43eb09969ceda1f0ac8b44314fcb6cd3c7ffab139eb66513fa45e0b7876cabb8",
+   "after_sha256": "f59bdeec316dc41ad90921e7efb82f9d3b98e077322fc09261fb97e2bbde90a7",
+   "after": "dd73195800f01c",
+   "purpose": "v1.1a: tone-LUT builder call -> call tn_tone,[d2,d3,a2,a3],28 (Blacks / Whites)"
+  },
+  {
+   "name": "live_nd_overlay_60538eb9",
+   "feature": "live_nd_overlay",
+   "address": "0x60538eb9",
+   "bytes": 39,
+   "before_sha256": "5b8662bbc60ab9237f733ccd19673c136bba696e4b45945d7aeea31d8d693564",
+   "after_sha256": "6ac9113d62aeb3b0abb846aa405e82bf72f07ffde579d7d46e08a0fa54e243c8",
+   "after": "aa02c925581ca001c91fdd06ff0000a01442e8ca14cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb",
+   "purpose": "fold: Overlay src1 buffer substitution on pass 1 only (stock: every pass; broke Overlay with 4f/8f)"
+  },
+  {
+   "name": "live_nd_af_limiter_6053908e",
+   "feature": "live_nd_af_limiter",
+   "address": "0x6053908e",
+   "bytes": 5,
+   "before_sha256": "d5a70aac4454d08770e474270a989edeadedda236fe6e54c8c3cdafa2782ae0e",
+   "after_sha256": "0501307451761a997214f79d408cd92d2c310c156d42706af7ccffed2faa61c8",
+   "after": "cbcbcbcbcb",
+   "purpose": "gain helper 0x6053907a: handles[handle] lookup -> the handle itself (stock quirk; with 9 handles a value of 9 would read the request mode field)"
+  },
+  {
+   "name": "films_6054f1e7",
+   "feature": "films",
+   "address": "0x6054f1e7",
+   "bytes": 4,
+   "before_sha256": "3c843aaae4425cd7e70fae359905fefdf5fe733698d3410a9c912cbf831d9be8",
+   "after_sha256": "a21bf02b45a2f696a099fc1dc98dbd1d87a94972d5f081c3e11d1b934571eef8",
+   "after": "2aad5200",
+   "purpose": "WB fine-tune read 0x6054f1e6 -> wb_get"
+  },
+  {
+   "name": "films_6054f201",
+   "feature": "films",
+   "address": "0x6054f201",
+   "bytes": 4,
+   "before_sha256": "6c2ad6d559070eab54b7f7922eebd4874c50b8a05e28166d95825f53520ea731",
+   "after_sha256": "f100a9d2edc060af4c90f1d68013b294a85f711df37116d941c15717a5e25205",
+   "after": "10ad5200",
+   "purpose": "WB fine-tune read 0x6054f200 -> wb_get"
+  },
+  {
+   "name": "films_6054f344",
+   "feature": "films",
+   "address": "0x6054f344",
+   "bytes": 4,
+   "before_sha256": "8d35e2d41b0b65b9d8259a2d0a2dbe7e208aa151fc5a5acdc3f1a9b815a05b4f",
+   "after_sha256": "a1b8e04a37a41b81f01676839d46e34c2aae90edd1f4e9fa7c32f5c39fa48606",
+   "after": "cdab5200",
+   "purpose": "WB fine-tune read 0x6054f343 -> wb_get"
+  },
+  {
+   "name": "films_6054f359",
+   "feature": "films",
+   "address": "0x6054f359",
+   "bytes": 4,
+   "before_sha256": "fd85b4681692ef2ce33d8c5c3a906b9fd1e598ce8e0cb752f5b5cc59dbd42cf5",
+   "after_sha256": "ba8046cbe7210c3a8f71987c4c117200b9c45604bc073ce128924c6d6bb9d402",
+   "after": "b8ab5200",
+   "purpose": "WB fine-tune read 0x6054f358 -> wb_get"
+  },
+  {
+   "name": "films_6054f3d6",
+   "feature": "films",
+   "address": "0x6054f3d6",
+   "bytes": 4,
+   "before_sha256": "25a2b522388376e00fcff6746a9f8474a056e875be8397a9d60434ac8297bd2e",
+   "after_sha256": "037348dc5dacbc3d226340d37bd92c30ca15ce7718d22dc75ad5bf93a8ca0d1e",
+   "after": "3bab5200",
+   "purpose": "WB fine-tune read 0x6054f3d5 -> wb_get"
+  },
+  {
+   "name": "films_6054f3ec",
+   "feature": "films",
+   "address": "0x6054f3ec",
+   "bytes": 4,
+   "before_sha256": "929c1a3ed81ea533568d89a8eaef853baf4c1d9e0138f47b3359c512f9de4619",
+   "after_sha256": "4cdc0092e1e4b718501474e6e3e178e4c0151bf5b6ebc8693c74c63350408820",
+   "after": "25ab5200",
+   "purpose": "WB fine-tune read 0x6054f3eb -> wb_get"
+  },
+  {
+   "name": "films_6054f4c4",
+   "feature": "films",
+   "address": "0x6054f4c4",
+   "bytes": 4,
+   "before_sha256": "5d09ac0e03419500a8ee8ed78c143bab5c05b6ed25d47eeded7729fdef7ddd21",
+   "after_sha256": "6b9f371c5ea78d3ba7ce2afee8db09826207a9770b257fce744e903ce71ca7c3",
+   "after": "4daa5200",
+   "purpose": "WB fine-tune read 0x6054f4c3 -> wb_get"
+  },
+  {
+   "name": "films_6054f4dc",
+   "feature": "films",
+   "address": "0x6054f4dc",
+   "bytes": 4,
+   "before_sha256": "581f117114fbd68ff5b8343158a9d1debde99fbc8c5ff04c61efcc93f71e11b6",
+   "after_sha256": "a1f30a25276203abb075be57b0a76312b7f917c9560430add97ea3a8ec87ffcf",
+   "after": "35aa5200",
+   "purpose": "WB fine-tune read 0x6054f4db -> wb_get"
+  },
+  {
+   "name": "films_6054f530",
+   "feature": "films",
+   "address": "0x6054f530",
+   "bytes": 4,
+   "before_sha256": "31a234452a4e7fb76c138ed868c64e212d8ac33af34069e1e3919a8991201d5b",
+   "after_sha256": "96dc42883e5c5fc1413ed62678a75ba874ab138e8d3c3de5dbcccf9792b8580c",
+   "after": "e1a95200",
+   "purpose": "WB fine-tune read 0x6054f52f -> wb_get"
+  },
+  {
+   "name": "films_6054f549",
+   "feature": "films",
+   "address": "0x6054f549",
+   "bytes": 4,
+   "before_sha256": "5b4a0c43b0d3931dc24f57b467f50376dc33b230bb96c23575da2f1a6776d89a",
+   "after_sha256": "8adc30e69c0147b8dbbc3ed2a8c885f08ad3db44ea498cdf385e43ef5709bacf",
+   "after": "c8a95200",
+   "purpose": "WB fine-tune read 0x6054f548 -> wb_get"
+  },
+  {
+   "name": "films_60557426",
+   "feature": "films",
+   "address": "0x60557426",
+   "bytes": 4,
+   "before_sha256": "230c8432e261aaa0147762c13b519dc83eec92c935a1bcad67b3460a61af9092",
+   "after_sha256": "15b1411af0190d0c050416d1d7e68ffb788bb204f7fbb78a755dff3350540309",
+   "after": "eb2a5200",
+   "purpose": "WB fine-tune read 0x60557425 -> wb_get"
+  },
+  {
+   "name": "films_6055743b",
+   "feature": "films",
+   "address": "0x6055743b",
+   "bytes": 4,
+   "before_sha256": "dd1e24b27ce493a22afdf1f98a9cfb0346623f2f03b52aca9ef14a69b5eea4e6",
+   "after_sha256": "76b80895963e19b86f2438f2465ca649ee04f2a276c350b083926b5f9e0c45ae",
+   "after": "d62a5200",
+   "purpose": "WB fine-tune read 0x6055743a -> wb_get"
+  },
+  {
+   "name": "films_60567dd5",
+   "feature": "films",
+   "address": "0x60567dd5",
+   "bytes": 4,
+   "before_sha256": "f3254b154bc49c05a17345b11dc0f8b9c139f40a957753740de32635af7c4c3e",
+   "after_sha256": "06afd7f47947ec7d1654119953c45c0ed215b4c3cb302a805b88a1737820bc41",
+   "after": "3c215100",
+   "purpose": "WB fine-tune read 0x60567dd4 -> wb_get"
+  },
+  {
+   "name": "films_60567ded",
+   "feature": "films",
+   "address": "0x60567ded",
+   "bytes": 4,
+   "before_sha256": "78236e35fae67dc2c2af2f1325045b7c18faeb33275a02ec3a2a0581ed9efeb5",
+   "after_sha256": "75a50c67a52f5438cc25c2647972e854b603b2cc2b504c3cc8dc828acc31abe5",
+   "after": "24215100",
+   "purpose": "WB fine-tune read 0x60567dec -> wb_get"
+  },
+  {
+   "name": "live_nd_af_limiter_6069b270",
+   "feature": "live_nd_af_limiter",
+   "address": "0x6069b270",
+   "bytes": 22,
+   "before_sha256": "4cee7060fc85c66cdb7830ad2a6e09c8fbb0e9173276bee9df0744c2735e2fda",
+   "after_sha256": "008e2ef9526ad99b0cc3a9c9334cf9e21d7a8583cf526a0a79ebb0fc7d587261",
+   "after": "431c460c961ca004c704800482fccc48c49d60de0000",
+   "purpose": "helper H4 (patch8f_helpers.s, HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_6069b288",
+   "feature": "live_nd_af_limiter",
+   "address": "0x6069b288",
+   "bytes": 17,
+   "before_sha256": "e840723f7901baf63bb89c6a95133e00c04e186487511bd3de638bcc27dde064",
+   "after_sha256": "4ca2cd1d18b77f6625e3f4d3c9e58b08a3d464caf48a43d20042d7e6e3b114fd",
+   "after": "462c43205e641ca004c70480043cde0000",
+   "purpose": "helper H5 (patch8f_helpers.s, HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_6069b7bc",
+   "feature": "live_nd_af_limiter",
+   "address": "0x6069b7bc",
+   "bytes": 48,
+   "before_sha256": "80a76a18acf8cb64fec3a659ffc4bab4a87cd9a6fde4dab2161a8751d136c9d2",
+   "after_sha256": "7f56dc21cac7f1d2bd234a15d831f9205d1af478a1a0a00106497aca1759691a",
+   "after": "000000000400ae05a412f9600200000004002a00a412f9600400000004009705a412f9600800000004006e07a412f960",
+   "purpose": "GUI option array B: Off / 2f / 4f / 8f (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_607ad61e",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607ad61e",
+   "bytes": 7,
+   "before_sha256": "00c444b784e1a5593f65afd75df81e147aec748e3e374771e040ac95e986e60a",
+   "after_sha256": "49f9ab93264914e269549945c4ec0b432e316312a42e8bdd037d46a96ebb5671",
+   "after": "dd6adceeff0000",
+   "purpose": "review RecView_MultiExp(OUT) entry -> H5 (count <= 4) (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_607baf11",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607baf11",
+   "bytes": 12,
+   "before_sha256": "ad76af04b56f360f47f3ec0c9cffe56e9002633f8656f783081ae9d8fe12b522",
+   "after_sha256": "84cd48e74cf85a0002ff4575204aed40bcb6f8e5cb82645bc853b9fe5ad077af",
+   "after": "dd5f03eeff0000cbcbcbcbcb",
+   "purpose": "makePlayScaleHandle entry -> H4 (count <= 4) (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_607bbaaf",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607bbaaf",
+   "bytes": 3,
+   "before_sha256": "faacc87e58ccb0bb9fce8647a34cffcc4ef7268537f3557ca5985f90df186407",
+   "after_sha256": "3bebb967e775b507462b9cb5347427e63d2ce2afacce527187cd129f50662a9c",
+   "after": "f8fec4",
+   "purpose": "compose: add -52,sp -> add -60,sp (+8 keeps stock 8-byte stack parity)"
+  },
+  {
+   "name": "live_nd_af_limiter_607bbabe",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607bbabe",
+   "bytes": 2,
+   "before_sha256": "a1580052b0a8c1cb76141348757da623d554a07747636c6828d37aa417ae14bc",
+   "after_sha256": "a6dcb2f704228b94726c06105ed435d89c52aa2d8044dcefcc38058467b9f85c",
+   "after": "8524",
+   "purpose": "compose: memset 20 -> 36"
+  },
+  {
+   "name": "live_nd_af_limiter_607bbb52",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607bbb52",
+   "bytes": 3,
+   "before_sha256": "b60bcfe74eca155548695a49d89ccd97426a66dac0f39191fb525594ce059add",
+   "after_sha256": "6d2b324eb1c300823b3389e6bc42ca0c4279cd417d38cd97a59863276ae49b72",
+   "after": "dff04c",
+   "purpose": "compose: ret frame 68 -> 76"
+  },
+  {
+   "name": "live_nd_af_limiter_607bbe18",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607bbe18",
+   "bytes": 1,
+   "before_sha256": "3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43",
+   "after_sha256": "72dfcfb0c470ac255cde83fb8fe38de8a128188e03ea5ba5b2a93adbea1062fa",
+   "after": "4c",
+   "purpose": "compose direct caller 0x607bbe14 \"call 0x607bbab2,[d2,d3,a2,a3],68\": frame 68 -> 76 (this entry skips the add -N,sp; the call sets the frame)"
+  },
+  {
+   "name": "live_nd_af_limiter_607fdaef",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fdaef",
+   "bytes": 2,
+   "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+   "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+   "after": "af09",
+   "purpose": "freeTakeBufferAll: entry bound 5 -> 9"
+  },
+  {
+   "name": "live_nd_af_limiter_607fdb54",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fdb54",
+   "bytes": 2,
+   "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+   "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+   "after": "af09",
+   "purpose": "freeTakeBufferAll: loop bound 5 -> 9"
+  },
+  {
+   "name": "live_nd_af_limiter_607fe0c7",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fe0c7",
+   "bytes": 2,
+   "before_sha256": "f3aebb7ba5229b4eab58ad44ab595ede7fe3bb659769c3059d9cde3990105f53",
+   "after_sha256": "8a0d8789125cbcbb0b462f501f0741e5d61748e91a5a3d9e4ecdbe9840e49c5b",
+   "after": "a509",
+   "purpose": "controller: reset loop (<=) 5 -> 9"
+  },
+  {
+   "name": "live_nd_af_limiter_607fe37d",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fe37d",
+   "bytes": 2,
+   "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+   "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+   "after": "af09",
+   "purpose": "freeTakeHandles: entry bound 5 -> 9"
+  },
+  {
+   "name": "live_nd_af_limiter_607fe3a9",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fe3a9",
+   "bytes": 2,
+   "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+   "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+   "after": "af09",
+   "purpose": "freeTakeHandles: loop bound 5 -> 9"
+  },
+  {
+   "name": "live_nd_af_limiter_607fe857",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fe857",
+   "bytes": 2,
+   "before_sha256": "1d1043283cb2dda39e49c16d906167dc2d06ccf985bb0829bd2c0a9f599a239f",
+   "after_sha256": "2d8d73f47c4d6a2184cb27e705d4529f2bb5456444a2523d230ade2437f6019c",
+   "after": "8028",
+   "purpose": "controller: combine array alloc 20 -> 40"
+  },
+  {
+   "name": "live_nd_af_limiter_607fe880",
+   "feature": "live_nd_af_limiter",
+   "address": "0x607fe880",
+   "bytes": 2,
+   "before_sha256": "f3aebb7ba5229b4eab58ad44ab595ede7fe3bb659769c3059d9cde3990105f53",
+   "after_sha256": "8a0d8789125cbcbb0b462f501f0741e5d61748e91a5a3d9e4ecdbe9840e49c5b",
+   "after": "a509",
+   "purpose": "controller: init loop 5 -> 9"
+  },
+  {
+   "name": "live_nd_af_limiter_608489df",
+   "feature": "live_nd_af_limiter",
+   "address": "0x608489df",
+   "bytes": 4,
+   "before_sha256": "98028f989472438c99c180820331abb3516c3e675043f75faba2706f282b8555",
+   "after_sha256": "e1d03cfb80d73f378088bc00997943a7f4c78e58ee65b59933132b9fb932b1d3",
+   "after": "d6752000",
+   "purpose": "entryTAKE_PICTURE_CONT: release-source call -> H1 (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_608496fc",
+   "feature": "live_nd_af_limiter",
+   "address": "0x608496fc",
+   "bytes": 14,
+   "before_sha256": "f546f396667cf29903001df9e0678432f99ff5b8124f9ad32ad20b93d9716f82",
+   "after_sha256": "be231ce07ca9ebc582a65fc2f981132b417e1967c7fe5597d874625eb7707237",
+   "after": "98dd73672000a014cbcbcbcbcbcb",
+   "purpose": "take-done: flag op -> mov a2,a0; call H2,[d2,a2],20 (HSL layout)"
+  },
+  {
+   "name": "films_609a4660",
+   "feature": "films",
+   "address": "0x609a4660",
+   "bytes": 4,
+   "before_sha256": "926db683235032ef8872a95e4d81fa363990808deedef87aa55ca6f95538a4aa",
+   "after_sha256": "80d892e235d0429925ea35dd72493c749f4e9cae7097e264d86b29c796a15846",
+   "after": "379da760",
+   "purpose": "facade slot 0 set -> fl_set"
+  },
+  {
+   "name": "films_609a4668",
+   "feature": "films",
+   "address": "0x609a4668",
+   "bytes": 4,
+   "before_sha256": "3666bea646b565a6070f3a158708324e1f2f5a78d72ed328866678b13f221578",
+   "after_sha256": "083db421f0c9cec7642ea7e4ec9b94b30cd66167b1b983b73caf34af08a459fa",
+   "after": "fb9ca760",
+   "purpose": "facade slot 2 get (HSL hsl_get) -> fl_get, which chains to hsl_get"
+  },
+  {
+   "name": "films_609a4684",
+   "feature": "films",
+   "address": "0x609a4684",
+   "bytes": 4,
+   "before_sha256": "a8d1b92ba7c1d4915c1eee7ecfcbb52b43cc66b199765607bf6706a95e430672",
+   "after_sha256": "15fe370bc2222bc36cba60af469e864b72761d0a059eb881684686781bc2c104",
+   "after": "e09ca760",
+   "purpose": "facade slot 9 selectable -> fl_sel"
+  },
+  {
+   "name": "live_nd_af_limiter_60a4fe70",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60a4fe70",
+   "bytes": 54,
+   "before_sha256": "1d15acfeb2edbd16f21951af2d9db31a9dd540a6f27b5cddef7c69e5ec1ee00c",
+   "after_sha256": "0ad99abc29757d5a7c85942f8cd67365d75f187c8ad24b32b0e76f830a99d890",
+   "after": "92fccc00000048dd948dddff8004fa0ad400aa04c41f98dd4cbdddff200c1cfa060003a501c90340a8c60a98dd7d9fdffff014dfa014",
+   "purpose": "helper H2 (patch8f_helpers.s, HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60a4ffb4",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60a4ffb4",
+   "bytes": 22,
+   "before_sha256": "4cee7060fc85c66cdb7830ad2a6e09c8fbb0e9173276bee9df0744c2735e2fda",
+   "after_sha256": "dba02e5163ec82b905f35475473f942edfe49b73789076b4fdeff5cef0384f0a",
+   "after": "fa00d400a004c4078004de0000fca488486061de0000",
+   "purpose": "helper H1 (patch8f_helpers.s, HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60a4ffcc",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60a4ffcc",
+   "bytes": 43,
+   "before_sha256": "19462e5b80722887fa57a95767d166bee09cf097b4f393c05712515637133bbe",
+   "after_sha256": "cc8728bfd1280b1fcd412a54436b6431edde286f2f746dfd091f2c43176cd54e",
+   "after": "f80210f81010f8bd1ca504c71af80214f81014f80218f81018f8021cf8101cf80220f81020922210de0000",
+   "purpose": "helper H3 (patch8f_helpers.s, HSL layout)"
+  },
+  {
+   "name": "films_60a79cd6",
+   "feature": "films",
+   "address": "0x60a79cd6",
+   "bytes": 3,
+   "before_sha256": "e046fc11e3bc1c1b874ea064bd2c049d1a650448fb97734dae749ca98f5752c9",
+   "after_sha256": "8c95a931a4f6f4ce06b19c61d32650648f16396494a0808b21f3f324f4fdf411",
+   "after": "00f0fc",
+   "purpose": "osd debug-shell handler -> clr d0; rets (region reused)"
+  },
+  {
+   "name": "films_60a79ce0",
+   "feature": "films",
+   "address": "0x60a79ce0",
+   "bytes": 2872,
+   "before_sha256": "af00053fa05b4421ba2856297e6552695381ee068f2626aa00b82e88c9ec0a83",
+   "after_sha256": "6d6102714e06a1e9c8c5675279074ada5c14e4fcaaafcdcce6a75c31ba8ad5f8",
+   "after": "fac88e03c912fac9007fc40cfac9137fc6068001f0fcdc85b9cbfffac88e03c933f2e1fcc998f8c760c929cff0f8fef49396cd0101f01ca000c00bfac0007f6200dff01c9c992c8e03fcffea61fdffdff01cdce161fdfffac88e03c807dc76c6cbffcff0f8feec4604470893f1d6faca007fc605ccae00fcc6007f0000aa13c405cca100fca8b8b769a0f8921000fc82b8b769a0888515f244fcde18a4a760f1620c8cf8c40198f160f040f8ef01c805f8c404f8c01cf8c81cf1e1af0cc421af18c425af24c42a8dfcc524000000f8c101fcdca8a5a760f164f06004ca1a8cfac0bb0304ca128cfac0af038501ca098cfac0a3038502fc86b8b769a09c04fcffd5c5cbff4caf29c49bf8b810fc82b8b769a09c2c8e03049538fcffbac5cbffdff0249c2c8e0359045d08fcffa9c5cbffdff024806fdd356487ff0004f892092c3e04dd286487ff0004f8920a0888fac0bb03dd186487ff00043cf168f8500448aa04c4ebf8b809a038c80da00bc94ff8b80aa003c948f8b804f8e00ff8b905f8e10ff8c104f21482f8b806f8e00ff8b907f8e10ff8c104f214f892080cfcde18a4a760f042a8c90ff84201f8b908a4c9068cdff01c22154caf13c4e980ffdff01cfac8007fc460fac8137fc65af1d6fcca289af560c91983fcc7007f00008eefeb57fcdd34a3a760f16d8501ca3943049486aa00c82d7caf38c808200c2affcaf3f86c04af04c91b5c0483fcc7007f00008eefeb57fcdd34a3a760f16d8501ca065c0480384304080ca9dc25f82000ff82ddddb15fffc00c83ddfafefffff01ca000c035fcdc16a2a760f160f040fccaf9840000c907f8c018ca0dfcca79960000c916f8c01cf8c81c1be3af07c3048f07aff9c2048ff98cdfc00cf1eef82604f80108fcc800000b00c805cc2601fa01c003a000c805cc1b01f802384204f8e402f81238f1ecddf0dca7fff01cf1ee5804f81238f82604fad13404f041f8e00ff84501f8e10ff8c104f21482f84102f8e00ff84503f8e10ff8c104f2140cfcdc18a4a760f044a9c908f84401a1c80c20154caf13c4f0ccb800f8c303fcdc9ca6a760f16cf80004a000c905cca300f82e0cfa273012b500c905cc9500f1ddfac13412f1e6b9c81304f4a5f4e62902fac90002c4f6fa3b30129399fad10002004208f062fac8ff03c7052cff03f84702a500c81c2eff03f1028bf24bf8c70af24bf8c70af247f8c70af10cc20300f84703a500c81c83f243f8c70af243f8c70af247f8c70aecfac8ff03c7052cff03f80704f254fcc0ffff0f00f8c414f067e45908a4c603844208f0722202b6c495dff01cf1ecdde3dba7fff01cdff01caf00c807dc9fc0a7ff58405944a1c9105948a1c90b8f014e20dc8ac0a7ffdc54c2a7ffcff0f8fef05e54f80208fcc800000b00c805cc9600fa02c003a000c805cc8b005c58f80064f8e403f81064fad23404f042f8e00ff84601f8e10ff8c104f21482f84202f8e00ff84603f8e10ff8c104f2140cfcdc18a4a760f044a9c908f84401a1c80b20154caf13c4f0ca3e8cf8c00281e0e4fcdf34a7a760f16373f80704f214f80708f214a000c8205e3cfa221c04b000c809cd2900f0285e3cfa222004b000c807cd1a00f028f8fe10cef0aa00c907dcaac1a7ff5840dc6ac1a7ff0042049df061184208f8610618420c00421092f1d0fac000044214725904f2a4fae0ff0381f8c102f8c408f2142dff0ff10182f246f8c60cf246f8c60c83f243f8c70cf247f8c70c5908f246590cf247eef8ca09e8a000c20300fac8ff0fc3052cff0f5910a4c203844210f8c4025904f2942eff03f296f2327ef20bf2136e22045814f1a2c49621025804280a4204a01ec605cc71ffdff028400020e00010000f00300000f000f00010000fffffff3600000018040000c4eac760370000001904000000000000380000001a04000000000000007f00001a04000000000000017f00001a04000000000000027f00001a04000000000000037f00001a04000000000000047f00001a04000000000000057f00001a04000000000000067f00001a04000000000000077f00001a04000000000000087f00001a04000000000000097f00001a040000000000000a7f00001a040000000000000b7f00001a040000000000000c7f00001a040000000000000d7f00001a040000000000000e7f00001a040000000000000f7f00001a04000000000000107f00001a04000000000000117f00001a04000000000000127f00001a04000000000000007f000005000000b2a5a760017f000005000000bba5a760027f000005000000c9a5a760037f000005000000d4a5a760047f000005000000e3a5a760057f000005000000eda5a760067f000005000000faa5a760077f00000500000003a6a760087f0000050000000da6a760097f00000500000019a6a7600a7f00000500000027a6a7600b7f00000500000036a6a7600c7f00000500000040a6a7600d7f00000500000050a6a7600e7f0000050000005aa6a7600f7f00000500000066a6a760107f00000500000073a6a760117f0000050000007fa6a760127f0000050000008aa6a760041f01bddb21000f0011f00f110000110000f10f0013422324de2110010000000f00f000ff000f02000f0f00efeeddfe00111101ef0f000010002201f0020eeeee2012deddffff00f0ff0f000000001100f10f0e4145121122f0101100102112f0ff0000ff00110001103224e0edff001011000000000000001100010000fe00102212ef1101ff0f100100000000ff00ff020f03ee1f3333551101f0ffffff000100000fff120d0dd0ccdcfe0f2200f01012f00f100100001100010f01efedff0000f0f0ff10110000000100001100f002000f11f0ffbcec00001001ef0f000000002200f001001001ef0f21e011001011111100000000f000000001ffffff0000ffeffeffff0000000000000000110100efeeffff42f10000f00f211100000000ff00100201deddfe0f32e1effe0000110110110000f000110200eeff00f0efdd0000f00f101100000000ff00fe0201bbdc0f00ffbd000010010010100100001201fe0100deed1f3224eff0ff000010120000f00ffe000f000f2111e0fe2001000000001111000000000000010e01ff96039303cd03ce03cf03476f6c6420323030004b6f64616368726f6d6520363400506f72747261203830300043696e655374696c6c203830305400456b7461722031303000556c7472616d6178203430300050726f20343030480056656c76696120353000537570657269612034303000436f6c6f72506c7573203230300043696e655374696c6c20343030440046756a69204332303000456b74616368726f6d652045313030005265616c61203130300050726f766961203130304600566973696f6e3320323530440046756a6920457465726e610041737469612031303046004167666120556c7472612031303000ffffff08000000f7df0f0000000c00ffff0f0000000c00ffff0f0000000c00ffff0f0008000000f7df0f000000000000000000000000000000000000001800ffff0f0008000000f7df0f00000000000000000000000c00ffff0f0008000000f7df0f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000f7df0f003400f8ffa2ff000000000000eafff6ff70000e000e008effbeff12004e000e000e008effa6ff3000f6ff000000000000000000000000000000000000000000000000000000000000aaff2400240000000000000000000000000000000000000070ff640070ff000000000000000000000000000000000000beff12004e003400f8ffa2ffa6ff3000f6ff000000000000000000000000000000000000000000000000000000000000000000000000000000000000beff12004e003400f8ffa2ffeafff6ff70000e000e008eff000000000000000000000000000000000000000000000000",
+   "purpose": "films v1.1: code + wb_get + 19 films + B/W + split K (section 5, former osd handler body)"
+  },
+  {
+   "name": "films_60af551d",
+   "feature": "films",
+   "address": "0x60af551d",
+   "bytes": 4,
+   "before_sha256": "28b3c260756fa52b354b89748d97099f6c179d7a1003bb9197ecf40b7222755f",
+   "after_sha256": "85ca202ffb2f6c28cdc697c15bd598d5d3bf3b54064d72fe045f08f8fceb65ef",
+   "after": "f449f8ff",
+   "purpose": "WB fine-tune read 0x60af551c -> wb_get"
+  },
+  {
+   "name": "films_60af5531",
+   "feature": "films",
+   "address": "0x60af5531",
+   "bytes": 4,
+   "before_sha256": "58aa7564d76a1217b8d6fbf9535e6510551421b5e88c47ddd7f8c1c40a053a59",
+   "after_sha256": "c395740f815bc7f09e1c1c981bbdccc2cafa9cd096309f36bb6276f6f89ec1c8",
+   "after": "e049f8ff",
+   "purpose": "WB fine-tune read 0x60af5530 -> wb_get"
+  },
+  {
+   "name": "films_60c7f7f4",
+   "feature": "films",
+   "address": "0x60c7f7f4",
+   "bytes": 4,
+   "before_sha256": "8d1792b79bb2ed115802d3fe14bc18cb44f8682bf5359cb2c5fd056ff2da3851",
+   "after_sha256": "ba4d0b09cb4e966c7daf97a93e5e1e54694920ec08989aaf0dbb11d89a90418b",
+   "after": "2ca2a760",
+   "purpose": "COLOR picture-mode list records -> COLOR 1-3 + films (section 5)"
+  },
+  {
+   "name": "films_60c7f7fb",
+   "feature": "films",
+   "address": "0x60c7f7fb",
+   "bytes": 1,
+   "before_sha256": "084fed08b978af4d7d196a7446a86b58009e636b611db16211b65a9aadff29c5",
+   "after_sha256": "7cb7c4547cf2653590d7a9ace60cc623d25148adfbc88a89aeb0ef88da7839ba",
+   "after": "16",
+   "purpose": "COLOR record count 3 -> 22"
+  },
+  {
+   "name": "films_60c8972a",
+   "feature": "films",
+   "address": "0x60c8972a",
+   "bytes": 5,
+   "before_sha256": "138d6d29dd4560a4b917574fc1e87600434d96b375469222d49554ea43f54082",
+   "after_sha256": "19b7de791e89cce870da772a4e19482e227249781c9c18d89809d68530dba434",
+   "after": "dc7707dfff",
+   "purpose": "label lookup entry -> fl_lk"
+  },
+  {
+   "name": "af_limiter_60f43988",
+   "feature": "af_limiter",
+   "address": "0x60f43988",
+   "bytes": 4,
+   "before_sha256": "01ae8bca3feddc447c36822c041be588ef20ca9ff84c4ae180a0776f744427e2",
+   "after_sha256": "0d10a1656a262873081168b1f66a88a9a4f47ec881d30372893d52973ac0abd9",
+   "after": "c0010000",
+   "purpose": "page 67 action list record: Focus Ring 38 -> AF Limiter 448 (OK/right opens the popup)"
+  },
+  {
+   "name": "af_limiter_60f51c90",
+   "feature": "af_limiter",
+   "address": "0x60f51c90",
+   "bytes": 36,
+   "before_sha256": "d45b1daa2a69368758de44e48251d80bfff2249d1875253fa377e3c123429021",
+   "after_sha256": "bdf7cc9d3f384952077218bed2d7ca0ee23d0c57988a0ccd4c21d598897bf029",
+   "after": "c00104000400000005000000e07f426005000000eb7f4260ac7f426000000000ac7f4260",
+   "purpose": "Custom Menu A row \"Focus Ring\" -> \"AF Limiter\" (setting 448, 4 options)"
+  },
+  {
+   "name": "af_limiter_60f52f20",
+   "feature": "af_limiter",
+   "address": "0x60f52f20",
+   "bytes": 4,
+   "before_sha256": "ef8b4d432da2f1cb71fe515fe612d271c206cd72d9da63ce59616873115f7bbe",
+   "after_sha256": "b1d9ece1f2ef75bc8eb8f90a83fe28c4dd8560a2d466d55677baead36d09b6aa",
+   "after": "c0010100",
+   "purpose": "custom-menu popup kind table: (Focus Ring 38, 1) -> (AF Limiter 448, 1)"
+  },
+  {
+   "name": "live_nd_af_limiter_60f9752c",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60f9752c",
+   "bytes": 8,
+   "before_sha256": "82b3ec032660146e7f0661c9558d93990c927f05fe4a89b4f6c9bbee9686ab8d",
+   "after_sha256": "03c80a126ea2f96bc3075d6651c24b0557517201beec20399dce89517a5f7f80",
+   "after": "787e426004000000",
+   "purpose": "menu record: array A, count 4 (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60f9753c",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60f9753c",
+   "bytes": 8,
+   "before_sha256": "cfd14c1e3f7861a9d2d9990fc6f3d9e0823f630b9d9b9ec4175cb11e0cdc35bf",
+   "after_sha256": "b8183048102460a55ddc3ddc17e45c3d048e851b209164b7d2200bb107634bba",
+   "after": "bcb7696004000000",
+   "purpose": "menu record: array B, count 4 (HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60fdc7a4",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60fdc7a4",
+   "bytes": 23,
+   "before_sha256": "be708023f605c56d0cb0582b0a28a8535509f9a66a8e7804cd9db3b55e464ef8",
+   "after_sha256": "3b86a75a0b5a382eae766f1f5c8e722ff09adde7cbcaee0c9e31bcf8e15dace4",
+   "after": "f063f8e402f0732c0b01dd9c3a31ff0004f87302df0004",
+   "purpose": "helper H6 (patch8f_helpers.s, HSL layout)"
+  },
+  {
+   "name": "live_nd_af_limiter_60fdc7c0",
+   "feature": "live_nd_af_limiter",
+   "address": "0x60fdc7c0",
+   "bytes": 51,
+   "before_sha256": "ef8ba7fe35e860343c0139598a8c4f7ac256847c0ca3542ea93644afc8685105",
+   "after_sha256": "7c8f06d7d7e5ffc1564cd5d50426bb31e3c24e23f20cb9b5c5bfdec8a7aa9957",
+   "after": "2cc001dd873a31ff0004a004c61a8504f101f003f80068f82464f114f244f8c802f154f81068fca4a0368a61faec0008df0004",
+   "purpose": "helper H7 af limiter by setting 448 (aflimit2_helpers.s)"
+  }
+ ]
+}

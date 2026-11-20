@@ -1,0 +1,152 @@
+{
+ "source": "caduceus-om3 main (v0.30.3 / v0.40-beta3): webapp/src/split.ts SPLIT_K (= firmware st_k) and research/splittone/model.py bend28. Apache-2.0, androidfanman and contributors; keep their NOTICE where used.",
+ "fetched": "2026-11-19",
+ "wheel_colours": [
+  "Yellow",
+  "Orange",
+  "Orange-red",
+  "Red",
+  "Magenta",
+  "Violet",
+  "Blue",
+  "Blue-cyan",
+  "Cyan",
+  "Green-cyan",
+  "Green",
+  "Yellow-green"
+ ],
+ "st_k_per_step_RGB": [
+  [
+   7,
+   7,
+   -57
+  ],
+  [
+   26,
+   -4,
+   -47
+  ],
+  [
+   37,
+   -12,
+   -33
+  ],
+  [
+   43,
+   -18,
+   -18
+  ],
+  [
+   39,
+   -26,
+   29
+  ],
+  [
+   17,
+   -19,
+   53
+  ],
+  [
+   -11,
+   -5,
+   56
+  ],
+  [
+   -33,
+   9,
+   39
+  ],
+  [
+   -43,
+   18,
+   18
+  ],
+  [
+   -45,
+   24,
+   -5
+  ],
+  [
+   -36,
+   25,
+   -36
+  ],
+  [
+   -13,
+   17,
+   -55
+  ]
+ ],
+ "strength_note": "look sh/hl in v0.26 units 0..5 (half steps); camera steps = 2*value (0..10), bend >>9 (v0.28). Tone balance -5..+5, c = 2048-256*b on 12-bit.",
+ "owner_films": {
+  "Gold 200": {
+   "sh_color": 1,
+   "sh": 1,
+   "hl_color": 1,
+   "hl": 0
+  },
+  "Kodachrome 64": {
+   "sh_color": 6,
+   "sh": 1,
+   "hl_color": 0,
+   "hl": 1
+  },
+  "Portra 800": {
+   "sh_color": 7,
+   "sh": 1,
+   "hl_color": 0,
+   "hl": 1
+  },
+  "CineStill 800T": {
+   "sh_color": 9,
+   "sh": 1,
+   "hl_color": 1,
+   "hl": 0
+  },
+  "Ektar 100": null,
+  "Ultramax 400": null,
+  "Pro 400H": {
+   "sh_color": 8,
+   "sh": 1,
+   "hl_color": 0,
+   "hl": 0
+  },
+  "Velvia 50": null,
+  "Superia 400": {
+   "sh_color": 10,
+   "sh": 2,
+   "hl_color": 0,
+   "hl": 0
+  },
+  "ColorPlus 200": null,
+  "CineStill 400D": {
+   "sh_color": 7,
+   "sh": 1,
+   "hl_color": 1,
+   "hl": 1
+  },
+  "Fuji C200": {
+   "sh_color": 9,
+   "sh": 1,
+   "hl_color": 0,
+   "hl": 0
+  },
+  "Ektachrome E100": null,
+  "Reala 100": null,
+  "Provia 100F": null,
+  "Vision3 250D": {
+   "sh_color": 7,
+   "sh": 1,
+   "hl_color": 1,
+   "hl": 1
+  },
+  "Fuji Eterna": {
+   "sh_color": 6,
+   "sh": 1,
+   "hl_color": 0,
+   "hl": 1
+  },
+  "Astia 100F": null,
+  "Agfa Ultra 100": null
+ }
+}
