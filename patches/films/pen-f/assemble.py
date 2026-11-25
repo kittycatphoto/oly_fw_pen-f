@@ -42,6 +42,52 @@ LINK = {
     'ST_NOCACHE': 0x604f631b, 'ST_CACHE': 0x604f62e2,
 }
 
+# Every redirect from stock code into the films block, generated from the linked symbols (v1.2-r1 copied v1.1's
+# bytes, so its hooks pointed at v1.1's addresses: boot loop). (address, kind, symbol, tail bytes):
+#   word   - absolute 32-bit pointer
+#   jmp    - `jmp d32` (dc + rel32 from the address), then the tail (nops)
+#   call   - `call d32,[regs],frame` (dd + rel32), then the tail (register mask, frame)
+#   disp   - the 4-byte displacement of an existing `call d32` whose opcode is the byte before the address
+WB_SITES = [0x6054f1e6, 0x6054f200, 0x6054f343, 0x6054f358, 0x6054f3d5, 0x6054f3eb, 0x6054f4c3, 0x6054f4db,
+            0x6054f52f, 0x6054f548, 0x60557425, 0x6055743a, 0x60567dd4, 0x60567dec, 0x60af551c, 0x60af5530]
+REDIRECTS = [
+    (0x604f6139, 'jmp', 'st_gate', bytes.fromhex('cbcb')),     # RGB stage cache-hit skip
+    (0x604f62dc, 'jmp', 'st_join', bytes.fromhex('cb')),       # RGB stage join after the copier
+    (0x604f85e8, 'call', 'tn_tone', bytes.fromhex('f01c')),    # tone-LUT builder call, [d2,d3,a2,a3],28
+    (0x609a4660, 'word', 'fl_set', b''),                       # facade slot 0
+    (0x609a4668, 'word', 'fl_get', b''),                       # facade slot 2
+    (0x609a4684, 'word', 'fl_sel', b''),                       # facade slot 9
+    (0x60c7f7f4, 'word', 'FL_RECS', b''),                      # COLOR picture-mode record list
+    (0x60c8972a, 'jmp', 'fl_lk', b''),                         # label lookup entry
+    *[(site + 1, 'disp', 'wb_get', b'') for site in WB_SITES],  # WB fine-tune reads
+]
+
+
+def redirect_bytes(address, kind, target, tail):
+    if kind == 'word':
+        return struct.pack('<I', target)
+    if kind == 'disp':
+        return struct.pack('<i', target - (address - 1))
+    return bytes([0xdc if kind == 'jmp' else 0xdd]) + struct.pack('<i', target - address) + tail
+
+
+def decode_redirect(address, kind, data, tail):
+    """The target a redirect's bytes actually reach (None when its shape is wrong)."""
+    if kind == 'word':
+        return struct.unpack('<I', data)[0] if len(data) == 4 else None
+    if kind == 'disp':
+        return (address - 1 + struct.unpack('<i', data)[0]) & 0xffffffff if len(data) == 4 else None
+    op = 0xdc if kind == 'jmp' else 0xdd
+    if len(data) != 5 + len(tail) or data[0] != op or data[5:] != tail:
+        return None
+    return (address + struct.unpack_from('<i', data, 1)[0]) & 0xffffffff
+
+
+def symbols(nm, elf):
+    out = subprocess.run([nm, str(elf)], capture_output=True, text=True, check=True).stdout
+    return {p[2]: int(p[0], 16) for p in (line.split() for line in out.splitlines()) if len(p) == 3}
+
+
 RELEASES = {
     # Camera-tested. Looks from caduceus-om3 v0.26.2; split toning from the owner's 2026-11-19 choices
     # (caduceus_split_v0.30.json owner_films); WB shift from patch.json. Recognition: saturation sectors 1-4.
@@ -236,10 +282,15 @@ def assemble(release, main, spec, out, assembler, linker, objcopy):
     block = (out / 'films.bin').read_bytes()
     if ORIGIN + len(block) > REGION_END:
         raise ValueError(f'Films block {len(block)} B overruns the osd region')
-    return block, t
+    sym = symbols(str(Path(objcopy).with_name(Path(objcopy).name.replace('objcopy', 'nm'))), out / 'films.elf')
+    redirects = {address: redirect_bytes(address, kind, sym[name], tail) for address, kind, name, tail in REDIRECTS}
+    (out / 'redirects.json').write_text(json.dumps(
+        {hex(a): {'kind': k, 'symbol': n, 'target': hex(sym[n]), 'bytes': redirects[a].hex()}
+         for a, k, n, _ in REDIRECTS}, indent=1) + '\n')
+    return block, t, redirects
 
 
-def write_spec(spec, release, block, t, path, main):
+def write_spec(spec, release, block, t, path, main, redirects):
     new = copy.deepcopy(spec)
     new['release'] = f'films-{release}'
     for key in ('main_sha256', 'package_sha256'):   # unknown until build.py makes it; not camera-tested
@@ -255,6 +306,13 @@ def write_spec(spec, release, block, t, path, main):
             row['after_sha256'] = sha(block)
             row['purpose'] = (f'films {release}: code + wb_get + {len(t["names"])} films + B/W + split K'
                               + (' + RGB curves' if t['curves'] else '') + ' (section 5, former osd handler body)')
+    rows = {int(r['address'], 16): r for r in new['main_ranges']}
+    for address, data in redirects.items():
+        row = rows[address]                      # every redirect is an existing range of the same length
+        if row['bytes'] != len(data):
+            raise ValueError(f'redirect {hex(address)}: {len(data)} B, range has {row["bytes"]}')
+        row['after'] = data.hex()
+        row['after_sha256'] = sha(data)
     path.write_text(json.dumps(new, indent=1) + '\n')
 
 
@@ -273,8 +331,8 @@ def main():
     try:
         spec = json.loads(a.spec.read_text())
         base_main = a.main.read_bytes()
-        block, t = assemble(a.release, base_main, spec, a.out, tool(a.assembler, 'as'),
-                            tool(a.linker, 'ld'), tool(a.objcopy, 'objcopy'))
+        block, t, redirects = assemble(a.release, base_main, spec, a.out, tool(a.assembler, 'as'),
+                                       tool(a.linker, 'ld'), tool(a.objcopy, 'objcopy'))
     except (ValueError, OSError, subprocess.CalledProcessError, KeyError) as error:
         ap.exit(1, f'Assemble failed: {error}\n')
     report = {'release': a.release, 'bytes': len(block), 'sha256': sha(block), 'end': hex(ORIGIN + len(block)),
@@ -287,8 +345,14 @@ def main():
         if block != expected:
             first = next((i for i, (x, y) in enumerate(zip(block, expected)) if x != y), min(len(block), len(expected)))
             report['first_difference'] = hex(ORIGIN + first)
+        rows = {int(r['address'], 16): bytes.fromhex(r['after']) for r in spec['main_ranges']}
+        wrong = [hex(x) for x, data in redirects.items() if rows.get(x) != data]
+        report['redirects_match_spec'] = not wrong
+        report['matches_spec'] = report['matches_spec'] and not wrong
+        if wrong:
+            report['redirects_differ'] = wrong
     if a.spec_out:
-        write_spec(spec, a.release, block, t, a.spec_out, base_main)
+        write_spec(spec, a.release, block, t, a.spec_out, base_main, redirects)
         report['spec_out'] = str(a.spec_out)
     print(json.dumps(report, indent=2))
     sys.exit(0 if report.get('matches_spec', True) else 2)

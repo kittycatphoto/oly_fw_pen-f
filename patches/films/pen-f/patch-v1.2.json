@@ -293,8 +293,8 @@
    "address": "0x604f6139",
    "bytes": 7,
    "before_sha256": "30e5eee9c50d4a376eaa9604645d83337e528b11443718acd9a98172d43abb14",
-   "after_sha256": "f87cbc71661d0677bc89ba33d360707916f2c83905ea8ed6f1b94a954f239cc1",
-   "after": "dc643f5800cbcb",
+   "after_sha256": "6f8778981e22fd27f4e8d210543f9adb42c45155d91dce06b0a94b7f196cc684",
+   "after": "dc413f5800cbcb",
    "purpose": "v1.1b: RGB stage cache-hit skip -> jmp st_gate (single-curve requests always copy)"
   },
   {
@@ -303,8 +303,8 @@
    "address": "0x604f62dc",
    "bytes": 6,
    "before_sha256": "c1b75dee922176f8e792edc2da7243d9182ae73e0261e40649b2b2846b65c1d9",
-   "after_sha256": "f1d7c7f31e1d148b1c5592e4f44e7a3cbce4ed6df4461b89c9e9642e1411d75a",
-   "after": "dce43d5800cb",
+   "after_sha256": "fcaadd67e09fb12be2e056ebd52c1a70f37aae97f03263e1fd221e6b2779d5de",
+   "after": "dcc13d5800cb",
    "purpose": "v1.1b: RGB stage copier join -> jmp st_join (split toning bend, upload bits)"
   },
   {
@@ -313,8 +313,8 @@
    "address": "0x604f85e8",
    "bytes": 7,
    "before_sha256": "43eb09969ceda1f0ac8b44314fcb6cd3c7ffab139eb66513fa45e0b7876cabb8",
-   "after_sha256": "f59bdeec316dc41ad90921e7efb82f9d3b98e077322fc09261fb97e2bbde90a7",
-   "after": "dd73195800f01c",
+   "after_sha256": "5283d112ef758311445ae56f6d0e4d2da687e71494a462345a1caa8de4abb23d",
+   "after": "dd7f195800f01c",
    "purpose": "v1.1a: tone-LUT builder call -> call tn_tone,[d2,d3,a2,a3],28 (Blacks / Whites)"
   },
   {
@@ -343,8 +343,8 @@
    "address": "0x6054f1e7",
    "bytes": 4,
    "before_sha256": "3c843aaae4425cd7e70fae359905fefdf5fe733698d3410a9c912cbf831d9be8",
-   "after_sha256": "a21bf02b45a2f696a099fc1dc98dbd1d87a94972d5f081c3e11d1b934571eef8",
-   "after": "2aad5200",
+   "after_sha256": "161a2182606b45dc91b2a615b82b2312d00d9041f4cc92482abf37aa6e7459ff",
+   "after": "36ad5200",
    "purpose": "WB fine-tune read 0x6054f1e6 -> wb_get"
   },
   {
@@ -353,8 +353,8 @@
    "address": "0x6054f201",
    "bytes": 4,
    "before_sha256": "6c2ad6d559070eab54b7f7922eebd4874c50b8a05e28166d95825f53520ea731",
-   "after_sha256": "f100a9d2edc060af4c90f1d68013b294a85f711df37116d941c15717a5e25205",
-   "after": "10ad5200",
+   "after_sha256": "a86b7aedfe456eadebe240e3d9e127a99fa305d1916e31406c4dd4b7efe774e6",
+   "after": "1cad5200",
    "purpose": "WB fine-tune read 0x6054f200 -> wb_get"
   },
   {
@@ -363,8 +363,8 @@
    "address": "0x6054f344",
    "bytes": 4,
    "before_sha256": "8d35e2d41b0b65b9d8259a2d0a2dbe7e208aa151fc5a5acdc3f1a9b815a05b4f",
-   "after_sha256": "a1b8e04a37a41b81f01676839d46e34c2aae90edd1f4e9fa7c32f5c39fa48606",
-   "after": "cdab5200",
+   "after_sha256": "87738bd1db0f4a9de9a8caf733abe5c3ca7f68cc918a786fcb8b8f2ec813a64b",
+   "after": "d9ab5200",
    "purpose": "WB fine-tune read 0x6054f343 -> wb_get"
   },
   {
@@ -373,8 +373,8 @@
    "address": "0x6054f359",
    "bytes": 4,
    "before_sha256": "fd85b4681692ef2ce33d8c5c3a906b9fd1e598ce8e0cb752f5b5cc59dbd42cf5",
-   "after_sha256": "ba8046cbe7210c3a8f71987c4c117200b9c45604bc073ce128924c6d6bb9d402",
-   "after": "b8ab5200",
+   "after_sha256": "c6b0066ddaa6b5ba99c3c62f287084dffc451780e4a22dcbbbe7af3377373a35",
+   "after": "c4ab5200",
    "purpose": "WB fine-tune read 0x6054f358 -> wb_get"
   },
   {
@@ -383,8 +383,8 @@
    "address": "0x6054f3d6",
    "bytes": 4,
    "before_sha256": "25a2b522388376e00fcff6746a9f8474a056e875be8397a9d60434ac8297bd2e",
-   "after_sha256": "037348dc5dacbc3d226340d37bd92c30ca15ce7718d22dc75ad5bf93a8ca0d1e",
-   "after": "3bab5200",
+   "after_sha256": "bf930efc3f3901579c031af6cad62acc35a1b3301af8877efdd6a9e82b185068",
+   "after": "47ab5200",
    "purpose": "WB fine-tune read 0x6054f3d5 -> wb_get"
   },
   {
@@ -393,8 +393,8 @@
    "address": "0x6054f3ec",
    "bytes": 4,
    "before_sha256": "929c1a3ed81ea533568d89a8eaef853baf4c1d9e0138f47b3359c512f9de4619",
-   "after_sha256": "4cdc0092e1e4b718501474e6e3e178e4c0151bf5b6ebc8693c74c63350408820",
-   "after": "25ab5200",
+   "after_sha256": "8d9f36ce90f4add57afda4d93bb46e0291fbbc973b4483e5ba13ae77afd6a1b2",
+   "after": "31ab5200",
    "purpose": "WB fine-tune read 0x6054f3eb -> wb_get"
   },
   {
@@ -403,8 +403,8 @@
    "address": "0x6054f4c4",
    "bytes": 4,
    "before_sha256": "5d09ac0e03419500a8ee8ed78c143bab5c05b6ed25d47eeded7729fdef7ddd21",
-   "after_sha256": "6b9f371c5ea78d3ba7ce2afee8db09826207a9770b257fce744e903ce71ca7c3",
-   "after": "4daa5200",
+   "after_sha256": "de2e4a26a86cec1cc2ab18fec53afade084a4c2b7bc07a44f6f952b04f9a9745",
+   "after": "59aa5200",
    "purpose": "WB fine-tune read 0x6054f4c3 -> wb_get"
   },
   {
@@ -413,8 +413,8 @@
    "address": "0x6054f4dc",
    "bytes": 4,
    "before_sha256": "581f117114fbd68ff5b8343158a9d1debde99fbc8c5ff04c61efcc93f71e11b6",
-   "after_sha256": "a1f30a25276203abb075be57b0a76312b7f917c9560430add97ea3a8ec87ffcf",
-   "after": "35aa5200",
+   "after_sha256": "3d79230d9131d44ac653d4c52a7d51e568df93dee62718f4bc03696871583310",
+   "after": "41aa5200",
    "purpose": "WB fine-tune read 0x6054f4db -> wb_get"
   },
   {
@@ -423,8 +423,8 @@
    "address": "0x6054f530",
    "bytes": 4,
    "before_sha256": "31a234452a4e7fb76c138ed868c64e212d8ac33af34069e1e3919a8991201d5b",
-   "after_sha256": "96dc42883e5c5fc1413ed62678a75ba874ab138e8d3c3de5dbcccf9792b8580c",
-   "after": "e1a95200",
+   "after_sha256": "4a4dedc714148595f5758e9ee0981cd4aea70bcf66cae46fada3d36fb785c8bc",
+   "after": "eda95200",
    "purpose": "WB fine-tune read 0x6054f52f -> wb_get"
   },
   {
@@ -433,8 +433,8 @@
    "address": "0x6054f549",
    "bytes": 4,
    "before_sha256": "5b4a0c43b0d3931dc24f57b467f50376dc33b230bb96c23575da2f1a6776d89a",
-   "after_sha256": "8adc30e69c0147b8dbbc3ed2a8c885f08ad3db44ea498cdf385e43ef5709bacf",
-   "after": "c8a95200",
+   "after_sha256": "f9069022982a64291a1df71ad0ddaf3a3e5208f97086d32822afec561e70cf00",
+   "after": "d4a95200",
    "purpose": "WB fine-tune read 0x6054f548 -> wb_get"
   },
   {
@@ -443,8 +443,8 @@
    "address": "0x60557426",
    "bytes": 4,
    "before_sha256": "230c8432e261aaa0147762c13b519dc83eec92c935a1bcad67b3460a61af9092",
-   "after_sha256": "15b1411af0190d0c050416d1d7e68ffb788bb204f7fbb78a755dff3350540309",
-   "after": "eb2a5200",
+   "after_sha256": "ac6b04e79da655dc63c51fc541f848afbcb0eae634ecb7003c34a0198e6daa97",
+   "after": "f72a5200",
    "purpose": "WB fine-tune read 0x60557425 -> wb_get"
   },
   {
@@ -453,8 +453,8 @@
    "address": "0x6055743b",
    "bytes": 4,
    "before_sha256": "dd1e24b27ce493a22afdf1f98a9cfb0346623f2f03b52aca9ef14a69b5eea4e6",
-   "after_sha256": "76b80895963e19b86f2438f2465ca649ee04f2a276c350b083926b5f9e0c45ae",
-   "after": "d62a5200",
+   "after_sha256": "57b5ea3979db52f20cc26f0bc381a6541cabb9d57cc1511428fa597f4201472a",
+   "after": "e22a5200",
    "purpose": "WB fine-tune read 0x6055743a -> wb_get"
   },
   {
@@ -463,8 +463,8 @@
    "address": "0x60567dd5",
    "bytes": 4,
    "before_sha256": "f3254b154bc49c05a17345b11dc0f8b9c139f40a957753740de32635af7c4c3e",
-   "after_sha256": "06afd7f47947ec7d1654119953c45c0ed215b4c3cb302a805b88a1737820bc41",
-   "after": "3c215100",
+   "after_sha256": "971bb14904e49f512e2e13e6c0e61f5fffc4778e8c5973d99438b797ae7c6c85",
+   "after": "48215100",
    "purpose": "WB fine-tune read 0x60567dd4 -> wb_get"
   },
   {
@@ -473,8 +473,8 @@
    "address": "0x60567ded",
    "bytes": 4,
    "before_sha256": "78236e35fae67dc2c2af2f1325045b7c18faeb33275a02ec3a2a0581ed9efeb5",
-   "after_sha256": "75a50c67a52f5438cc25c2647972e854b603b2cc2b504c3cc8dc828acc31abe5",
-   "after": "24215100",
+   "after_sha256": "5020294e82f86b7d313a595f2e7113999a8ff9d69fa4ac18c6b35c4974316847",
+   "after": "30215100",
    "purpose": "WB fine-tune read 0x60567dec -> wb_get"
   },
   {
@@ -743,8 +743,8 @@
    "address": "0x60af551d",
    "bytes": 4,
    "before_sha256": "28b3c260756fa52b354b89748d97099f6c179d7a1003bb9197ecf40b7222755f",
-   "after_sha256": "85ca202ffb2f6c28cdc697c15bd598d5d3bf3b54064d72fe045f08f8fceb65ef",
-   "after": "f449f8ff",
+   "after_sha256": "4725425fdce130b27e6b7dfdc5ffc256237726c5efaf5f0611f44dea193e36ef",
+   "after": "004af8ff",
    "purpose": "WB fine-tune read 0x60af551c -> wb_get"
   },
   {
@@ -753,8 +753,8 @@
    "address": "0x60af5531",
    "bytes": 4,
    "before_sha256": "58aa7564d76a1217b8d6fbf9535e6510551421b5e88c47ddd7f8c1c40a053a59",
-   "after_sha256": "c395740f815bc7f09e1c1c981bbdccc2cafa9cd096309f36bb6276f6f89ec1c8",
-   "after": "e049f8ff",
+   "after_sha256": "f304bb176628b4449c9e0c2aada38108beb67b563284ae3b286f20a879e131b3",
+   "after": "ec49f8ff",
    "purpose": "WB fine-tune read 0x60af5530 -> wb_get"
   },
   {
@@ -763,8 +763,8 @@
    "address": "0x60c7f7f4",
    "bytes": 4,
    "before_sha256": "8d1792b79bb2ed115802d3fe14bc18cb44f8682bf5359cb2c5fd056ff2da3851",
-   "after_sha256": "ba4d0b09cb4e966c7daf97a93e5e1e54694920ec08989aaf0dbb11d89a90418b",
-   "after": "2ca2a760",
+   "after_sha256": "7a9826dc938b18a3cf823898394100aa05025970e334385ee062ff6c07d1960e",
+   "after": "78a2a760",
    "purpose": "COLOR picture-mode list records -> COLOR 1-3 + films (section 5)"
   },
   {
@@ -783,8 +783,8 @@
    "address": "0x60c8972a",
    "bytes": 5,
    "before_sha256": "138d6d29dd4560a4b917574fc1e87600434d96b375469222d49554ea43f54082",
-   "after_sha256": "19b7de791e89cce870da772a4e19482e227249781c9c18d89809d68530dba434",
-   "after": "dc7707dfff",
+   "after_sha256": "e574131e78378e372871dceeca1251e6db044e7381698ae4b6df105ef73c07ca",
+   "after": "dc8407dfff",
    "purpose": "label lookup entry -> fl_lk"
   },
   {

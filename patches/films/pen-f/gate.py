@@ -11,9 +11,12 @@ Static checks on the decoded main of a built package against the HSL base it was
     comes from a declared redirect range of the spec or from the films block itself. References the base already
     had are listed for review: they must target the stubbed handler entry or be bytes inside other instructions.
  3. The handler entry is stubbed (clr d0; rets), so the debug shell cannot run the region's new contents.
+ 4. Every hook (assemble.REDIRECTS) decodes, from the package's own bytes, to exactly its function in this build's
+    films.elf. (v1.2-r1 shipped v1.1's hook bytes after the functions had moved: a boot loop the rest missed.)
 
   python3 gate.py --package generated/films-v1.2/install/DCOLYMP/E1229999.BIN \
-                  --base generated/films-v1.2/base-hsl/install/DCOLYMP/E1229999.BIN --spec generated/patch-v1.2.json
+                  --base generated/films-v1.2/base-hsl/install/DCOLYMP/E1229999.BIN --spec generated/patch-v1.2.json \
+                  --elf generated/asm-v12/films.elf
 
 A raw scanner over-reports (bytes inside other instructions can look like a branch); it never under-reports the
 encodings it knows. PASS is static evidence only: it does not run the constructors or boot.
@@ -27,6 +30,8 @@ import sys
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[2] / 'tools'))
 from oly_container import parse  # noqa: E402
+sys.path.insert(0, str(HERE))
+import assemble  # noqa: E402
 
 BASE = 0x60021020
 BOOT = (0x60021020, 0x60142800)
@@ -88,7 +93,7 @@ def references(data, lo, hi):
     return out
 
 
-def gate(package, base, spec):
+def gate(package, base, spec, sym=None):
     new, old = main_of(package), main_of(base)
     if len(new) != len(old):
         raise ValueError('main sizes differ')
@@ -124,6 +129,16 @@ def gate(package, base, spec):
     early = [r for r in from_redirects if not inside(r[0], EARLY + [BOOT])]
     check('reachability: every redirect site is itself in the boot part or sections 1-5', not early,
           late=[hex(r[0]) for r in early])
+    if sym is not None:
+        wrong = []
+        for address, kind, name, tail in assemble.REDIRECTS:
+            size = 4 if kind in ('word', 'disp') else 5 + len(tail)
+            data = bytes(new[address - BASE:address - BASE + size])
+            got = assemble.decode_redirect(address, kind, data, tail)
+            if got != sym[name]:
+                wrong.append((hex(address), name, hex(sym[name]), hex(got) if got is not None else 'bad shape'))
+        check(f'redirects: all {len(assemble.REDIRECTS)} hooks reach their function in the assembled block', not wrong,
+              wrong=wrong[:24])
     kept = sorted(refs_old & refs_new)
     internal = [r for r in kept if inside(r[0], [DEAD])]
     external = [r for r in kept if not inside(r[0], [DEAD])]
@@ -141,9 +156,11 @@ def main():
     ap.add_argument('--package', type=Path, required=True)
     ap.add_argument('--base', type=Path, required=True, help='the HSL base package (build.py base-hsl/)')
     ap.add_argument('--spec', type=Path, required=True)
+    ap.add_argument('--elf', type=Path, required=True, help='assemble.py films.elf of this build (hook targets)')
+    ap.add_argument('--nm', default='mn10300-elf-nm')
     ap.add_argument('--out', type=Path)
     a = ap.parse_args()
-    report = gate(a.package, a.base, json.loads(a.spec.read_text()))
+    report = gate(a.package, a.base, json.loads(a.spec.read_text()), assemble.symbols(a.nm, a.elf))
     text = json.dumps(report, indent=2)
     print(text)
     if a.out:

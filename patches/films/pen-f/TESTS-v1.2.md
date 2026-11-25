@@ -1,13 +1,15 @@
 # PEN-F films v1.2: camera test plan
 
-Package: `DCOLYMP/E1229999.BIN`, SHA-256 `52270e0de73c7c912e0bea8e82dc7a76f7aabb9de298b67ae7f91ea3183eec79`
-(built 2026-11-25). It is v1.1 plus RGB curves, all 19 films regraded to caduceus-om3's current looks (24 Nov),
+Package: `DCOLYMP/E1229999.BIN`, **v1.2-r2**, SHA-256
+`53773a9e0100047b2ce520bfe91a16a3bafd3c161a3ee3d5462f67f88f0039d0` (built 2026-11-25). Do not use v1.2-r1
+(`52270e0d…ec79`): its hooks pointed at v1.1's function addresses and it boot-looped on the camera. It is v1.1 plus RGB curves, all 19 films regraded to caduceus-om3's current looks (24 Nov),
 Whites in use, and film recognition from saturation sectors 1–8 instead of 1–4. **No Color Mix yet.** The camera
 still shows firmware 3.1.
 
 Already checked without the camera: the films code run in the emulator, bit-exact with caduceus's maths; the
-startup-safety gate (the check that catches the v1 boot loop); the camera's own updater code accepting the
-package. Everything below is new evidence only the camera can give.
+startup-safety gate (the check that catches the v1 boot loop), which now also decodes every hook from the package
+and requires it to reach its function (the check that catches r1's boot loop); the camera's own updater code
+accepting the package. Everything below is new evidence only the camera can give.
 
 Work top to bottom: each section assumes the ones before it passed. **Stop at the first boot problem** and go to
 [Recovery](#recovery).

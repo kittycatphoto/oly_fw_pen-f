@@ -35,6 +35,14 @@ installed; its source was lost with the computer it was on. It has been rebuilt 
 
 ## v1.2 (rebuilt 2026-11-25, not camera-tested)
 
+**v1.2-r1 boot-looped on the camera** (package `52270e0d…ec79`, 2026-11-25; recovered with the hold-OK reflash of
+v1.1). Its spec kept v1.1's bytes for the 24 hooks, but `fl_ident` had grown and every function after it had moved, so
+the 16 WB-getter calls, which run at start-up in every picture mode, jumped into the middle of other code. Neither
+the emulator checks (they call functions by symbol) nor the gate (it only checked that hooks land in the films
+region) could see it. Now `assemble.py` generates every hook from the linked symbols (for v1.1 it reproduces all 24
+camera-tested hook bytes), and `gate.py --elf` decodes each hook from the package and requires it to reach its
+function: it fails r1 and passes v1.1. **v1.2-r2** (`53773a9e…39d0`) is the fixed build.
+
 v1.1 plus:
 
 - **RGB curves per film**: caduceus-om3 v0.30 `cv_prm` / `cv_d` (5 points per channel, -7..+7 steps of 48 on the 12-bit
@@ -54,9 +62,9 @@ v0.34). The PEN-F counterpart of that stage has not been found yet.
 | v1.2 check | Result |
 | --- | --- |
 | `checks.py`: fl_match, fl_ident, wb_get, st_bend, st_join, tn_tone run natively, every output bit-exact with an independent model of caduceus's maths; curve blocks equal caduceus `research/rgbcurves/model.py` for every t | pass (a corrupted curve byte fails st_bend and st_join) |
-| `gate.py`: startup-safety gate | pass (v1.1 passes as calibration) |
+| `gate.py`: startup-safety gate, incl. every hook reaching its function | pass (v1.1 passes; v1.2-r1 fails) |
 | `preflight.py`: stock updater, SD and USB-check modes, SD client / service chain, restore | pass (v1.1 passes as calibration) |
-| Camera | not tested |
+| Camera (v1.2-r2, 2026-11-25, 7 RAW+JPEG shots) | boots; films picked; the three confusable pairs recognised apart; WB shift added to the user's fine-tune, contrast and sharpness recorded right in every ORF; on a colour chart, Blacks lift (Portra 800, Ultramax 400), Portra 800's split toning (cooler shadows, warmer highlights) and Fuji C200's red curve shape are visible. Whites, exact strengths and sections 2 / 5 / 6 of TESTS-v1.2.md not yet tested |
 
 ## Build
 
@@ -92,7 +100,8 @@ needs the decoded main of the HSL base package (from `build.py`'s `base-hsl/`) f
 ```bash
 python3 patches/films/pen-f/assemble.py --release v1.2 --main hsl-main.bin --out generated/asm-v1.2   --spec-out patches/films/pen-f/patch-v1.2.json
 python3 patches/films/pen-f/checks.py --release v1.2 --block generated/asm-v1.2 --caduceus ../caduceus-om3
-python3 patches/films/pen-f/gate.py --package generated/pen-f-films-v1.2/install/DCOLYMP/E1229999.BIN   --base generated/pen-f-films-v1.2/base-hsl/install/DCOLYMP/E1229999.BIN --spec patches/films/pen-f/patch-v1.2.json
+python3 patches/films/pen-f/gate.py --package generated/pen-f-films-v1.2/install/DCOLYMP/E1229999.BIN   --base generated/pen-f-films-v1.2/base-hsl/install/DCOLYMP/E1229999.BIN --spec patches/films/pen-f/patch-v1.2.json \
+  --elf generated/asm-v1.2/films.elf
 python3 patches/films/pen-f/preflight.py --package generated/pen-f-films-v1.2/install/DCOLYMP/E1229999.BIN   --restore generated/pen-f-films-v1.2/restore-stock/DCOLYMP/E1229999.BIN
 ```
 
@@ -102,7 +111,7 @@ python3 patches/films/pen-f/preflight.py --package generated/pen-f-films-v1.2/in
 
 - `patch.json`: the 71 ranges (Live ND, AF Limiter and Overlay fix as in the base firmware, plus the films). New
   bytes are this project's own code, tables and redirects; original firmware bytes are recorded only as hashes.
-- `patch-v1.2.json`: the v1.2 spec written by `assemble.py` (not camera-tested, so it pins no package hash).
+- `patch-v1.2.json`: the v1.2 spec written by `assemble.py` (camera-tested in part: see the table; it pins no package hash).
 - `src/films_v1_1.s`, `src/films_v1_2.s`: the films code (MN103 assembly) in the reclaimed `osd` debug-shell handler
   region of section 5 (`0x60a79ce0`..).
 - `assemble.py`, `checks.py`, `gate.py`, `preflight.py`: assemble the block, emulator checks, startup-safety gate,
