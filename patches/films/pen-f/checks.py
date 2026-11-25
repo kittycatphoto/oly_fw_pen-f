@@ -25,7 +25,8 @@ import sys
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
-from penf_emulator import Region, execute, STACK, INITIAL_SP, WRAPPER  # noqa: E402
+from penf_emulator import Region, execute, firmware, BASE, STACK, INITIAL_SP, WRAPPER  # noqa: E402
+import random  # noqa: E402
 import assemble  # noqa: E402
 
 MEM = 0x10000000                 # synthetic data (R, C, O, tables, settings)
@@ -357,6 +358,118 @@ def checks(f, caduceus):
     n_bw = sum(1 for j in range(f.n) if struct.unpack_from('<I', f.t['bw'], 8 * j + 4)[0])
     check(f'tn_tone: 19 films + no film; {n_bw} Blacks / Whites remaps bit-exact with caduceus remapBW', not bad,
           str(bad[:3]))
+
+    # 7. Color Mix (v1.3): the stock 3 x 3 multiply and row scaler against their models, then mx_go through its real hook
+    if f.t.get('mix'):
+        def s16(v):
+            v &= 0xffff
+            return v - 0x10000 if v & 0x8000 else v
+
+        def mul_model(a, b):            # 0x604f41b9: out = (A x S) >> 8 per element, kept as s16
+            return [s16(sum(a[3 * i + k] * b[3 * k + j] for k in range(3)) >> 8) for i in range(3) for j in range(3)]
+
+        def row_model(m):               # 0x604f4418: off-diagonals kept (some made even), each diagonal = 128 - the rest
+            o = [0] * 9
+            o[1] = s16(m[1] & 0xfffe)
+            o[2] = s16(m[2])
+            o[0] = s16(128 - (o[1] + o[2]))
+            o[3], o[5] = s16(m[3]), s16(m[5])
+            if (o[3] + o[5]) & 1:
+                o[3], o[5] = s16(o[3] & 0xfffe), s16(o[5] & 0xfffe)
+            o[4] = s16(128 - (o[3] + o[5]))
+            o[6] = s16(m[6])
+            o[7] = s16(m[7] & 0xfffe)
+            o[8] = s16(128 - (o[6] + o[7]))
+            return o
+
+        def pack9(m):
+            return struct.pack('<9h', *m)
+
+        rng = random.Random(1125)
+        img = firmware()
+        mx_code = img[assemble.LINK['MX_MUL'] - BASE:0x604f4649 - BASE]
+
+        def stock_call(target, mask, frame, regs, extra):
+            code = b'\xdd' + struct.pack('<i', target - WRAPPER) + bytes([mask, frame])
+            r = dict({'d2': 0x22334455, 'd3': 0x66778899, 'a2': 0xaabbccdd, 'a3': 0x11223344, 'sp': INITIAL_SP,
+                      'pc': WRAPPER}, **regs)
+            return execute([Region('caller', WRAPPER, code, 'rx'), Region('mx', assemble.LINK['MX_MUL'], mx_code, 'rx'),
+                            Region('stack', STACK, bytes(0x1100), 'rw')] + extra, r, WRAPPER + len(code), timeout=60)
+
+        bad = []
+        for n in range(40):
+            a = [rng.randint(-300, 300) for _ in range(9)]
+            b = [rng.randint(-300, 300) for _ in range(9)]
+            r = stock_call(assemble.LINK['MX_MUL'], 0xf0, 116, {'a0': MEM + 0x100, 'a1': MEM, 'd0': MEM + 0x40},
+                           [Region('a', MEM, pack9(a), 'r'), Region('b', MEM + 0x40, pack9(b), 'r'),
+                            Region('o', MEM + 0x100, bytes(18), 'rw', capture=True)])
+            got = list(struct.unpack('<9h', bytes.fromhex(r['memory'][0]['hex'])))
+            if r['fault'] or got != mul_model(a, b):
+                bad.append(('mul', n, r['fault'], got, mul_model(a, b)))
+            r = stock_call(assemble.LINK['MX_ROW'], 0xb0, 12, {'a0': MEM + 0x100, 'a1': MEM},
+                           [Region('a', MEM, pack9(a), 'r'), Region('o', MEM + 0x100, bytes(18), 'rw', capture=True)])
+            got = list(struct.unpack('<9h', bytes.fromhex(r['memory'][0]['hex'])))
+            if r['fault'] or got != row_model(a):
+                bad.append(('row', n, r['fault'], got, row_model(a)))
+        check('Color Mix models: the stock 3x3 multiply and row scaler, 40 random matrices each, equal their models',
+              not bad, str(bad[:3]))
+
+        hook = assemble.redirect_bytes(assemble.MIX_REDIRECT[0], 'jmp', f.sym['mx_go'], b'')
+        stage = mx_code + hook                     # stock code 0x604f41b9..0x604f4649, then the patched call
+        so_far = [182, -38, -16, -27, 171, -16, -6, -52, 186]
+
+        def run_mix(sat, where, ret=assemble.LINK['MX_RET'], key=0x000b0000, art=0):
+            frame = STACK + 0x700                  # F
+            stack = bytearray(0x1100)
+            struct.pack_into('<I', stack, frame - STACK + 84, ret)
+            struct.pack_into('<I', stack, frame - STACK + 96, R_ADDR)
+            req = bytearray(2048)
+            struct.pack_into('<I', req, 8, key)
+            struct.pack_into('<I', req, 960, art)
+            req[SAT:SAT + 12] = sat_bytes(sat)
+            src = {'R': R_ADDR + 1020, 'F8': frame + 8, 'F28': frame + 28}[where]
+            if where == 'R':
+                req[1020:1038] = pack9(so_far)
+            else:
+                struct.pack_into('<9h', stack, src - STACK, *so_far)
+            regs = {'d2': frame + 48, 'a0': frame + 48, 'a1': src, 'a2': src,
+                    'a3': frame + 28 if where != 'F28' else frame + 8, 'd3': 0x01010064, 'sp': frame,
+                    'pc': 0x604f4649}
+            regions = [Region('films', assemble.ORIGIN, f.block, 'rx'),
+                       Region('stage', assemble.LINK['MX_MUL'], stage, 'rx'),
+                       Region('stack', STACK, bytes(stack), 'rw', capture=True), Region('req', R_ADDR, bytes(req), 'r')]
+            r = execute(regions, regs, assemble.LINK['MX_BACK'], limit=200_000, timeout=60)
+            st = bytes.fromhex(r['memory'][0]['hex'])
+            out = list(struct.unpack_from('<9h', st, frame - STACK + 48))
+            return r, regs, out
+
+        bad, ran = [], 0
+        for j in range(f.n):
+            idx = f.t['mix_idx'][j]
+            table = list(struct.unpack_from('<9h', f.t['mix_tab'], 18 * idx)) if idx != 255 else None
+            want = row_model(mul_model(table, so_far)) if table else row_model(so_far)
+            if table:
+                ours = assemble.mix_matrix(f.by_name[f.names[j]]['mix'])
+                if table != [x for row in ours for x in row] or any(sum(row) != 256 for row in ours):
+                    bad.append((f.names[j], 'table differs from the caduceus model'))
+            for where in ('R', 'F8', 'F28'):
+                r, regs, out = run_mix(f.film_sat(j), where)
+                ran += 1
+                ok = (not r['fault'] and r['registers']['pc'] == assemble.LINK['MX_BACK'] and out == want
+                      and all(r['registers'][k] == regs[k] for k in ('d2', 'd3', 'sp')))
+                if not ok:
+                    bad.append((f.names[j], where, r['fault'], out, want))
+        stock = row_model(so_far)
+        for label, kw in (('no film', {'sat': [0] * 12}), ('other caller', {'sat': f.film_sat(0), 'ret': 0x604f8abe}),
+                          ('MONO-like key', {'sat': f.film_sat(0), 'key': 0x000c0000}),
+                          ('art curve', {'sat': f.film_sat(0), 'art': 0x60600000})):
+            r, regs, out = run_mix(where='F8', **kw)
+            ran += 1
+            if r['fault'] or out != stock or any(r['registers'][k] != regs[k] for k in ('d2', 'd3', 'sp')):
+                bad.append((label, r['fault'], out, stock))
+        n_mix = sum(1 for x in f.t['mix_idx'] if x != 255)
+        check(f'mx_go through its hook: {ran} runs (19 films x 3 matrix places, no film, other caller, MONO, art); '
+              f'{n_mix} mixes = row scaler(ours x so far), the rest stock; d2, d3, sp kept', not bad, str(bad[:2]))
 
     # 6. the curve model against caduceus-om3's own research/rgbcurves/model.py, every t, every film
     if caduceus and f.t['curves']:

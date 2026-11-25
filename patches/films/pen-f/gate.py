@@ -131,13 +131,13 @@ def gate(package, base, spec, sym=None):
           late=[hex(r[0]) for r in early])
     if sym is not None:
         wrong = []
-        for address, kind, name, tail in assemble.REDIRECTS:
+        for address, kind, name, tail in assemble.redirect_list(sym):
             size = 4 if kind in ('word', 'disp') else 5 + len(tail)
             data = bytes(new[address - BASE:address - BASE + size])
             got = assemble.decode_redirect(address, kind, data, tail)
             if got != sym[name]:
                 wrong.append((hex(address), name, hex(sym[name]), hex(got) if got is not None else 'bad shape'))
-        check(f'redirects: all {len(assemble.REDIRECTS)} hooks reach their function in the assembled block', not wrong,
+        check(f'redirects: all {len(assemble.redirect_list(sym))} hooks reach their function in the assembled block', not wrong,
               wrong=wrong[:24])
     kept = sorted(refs_old & refs_new)
     internal = [r for r in kept if inside(r[0], [DEAD])]

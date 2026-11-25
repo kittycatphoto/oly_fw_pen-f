@@ -90,7 +90,8 @@ nothing changed** and then on each film below. RAW+JPEG if possible, so we can c
 ## 5. Photo paths not tested before
 
 - [ ] **RAW Data Edit** in playback on a RAW shot with a film: the new JPEG has the film's look.
-- [ ] RAW Data Edit of a photo shot on film A while the camera is now on film B: the new JPEG follows **film A**.
+- [ ] RAW Data Edit of a photo shot on film A while the camera is now on film B: the new JPEG follows **film B**,
+      the film selected at the time of the edit (found with v1.3 on 2026-11-25; this item first said film A).
 - [ ] RAW+JPEG on a film: the JPEG has the look.
 - [ ] **Live ND** 2f / 4f / 8f on a film: the photo saves, has the look, live view is fine.
 - [ ] **Burst** (sequential H and L) on a curve film, 20+ frames: no freeze or restart, all frames saved.

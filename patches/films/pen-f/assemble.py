@@ -40,7 +40,11 @@ LINK = {
     'LOOKUP_RESUME': 0x60c8972f, 'setting_get': 0x602f024a, 'GETTER': 0x600750ee,
     'TONE_BUILD': 0x604f7c76, 'ST_COPY': 0x604f6140, 'ST_SKIP': 0x604f630f,
     'ST_NOCACHE': 0x604f631b, 'ST_CACHE': 0x604f62e2,
+    # v1.3 Color Mix: the matrix stage's 3 x 3 multiply and row scaler, the return after the hook, and the return
+    # address of the development stage list's call of the matrix stage (0x604f8581).
+    'MX_MUL': 0x604f41b9, 'MX_ROW': 0x604f4418, 'MX_BACK': 0x604f464e, 'MX_RET': 0x604f8586,
 }
+MIX_UNIT = 8                    # caduceus-om3 colourmix: one hue / strength step = 8 / 256
 
 # Every redirect from stock code into the films block, generated from the linked symbols (v1.2-r1 copied v1.1's
 # bytes, so its hooks pointed at v1.1's addresses: boot loop). (address, kind, symbol, tail bytes):
@@ -61,6 +65,14 @@ REDIRECTS = [
     (0x60c8972a, 'jmp', 'fl_lk', b''),                         # label lookup entry
     *[(site + 1, 'disp', 'wb_get', b'') for site in WB_SITES],  # WB fine-tune reads
 ]
+
+
+MIX_REDIRECT = (0x604f4649, 'jmp', 'mx_go', b'')   # matrix stage row-scaler call (v1.3)
+
+
+def redirect_list(sym):
+    """The hooks of a build: the v1.1 / v1.2 set, plus Color Mix's when the block has mx_go."""
+    return REDIRECTS + ([MIX_REDIRECT] if 'mx_go' in sym else [])
 
 
 def redirect_bytes(address, kind, target, tail):
@@ -97,6 +109,9 @@ RELEASES = {
     # Recognition: saturation sectors 1-8 (sectors 1-4 are shared by three pairs of the current grades).
     'v1.2': {'source': 'src/films_v1_2.s', 'looks': 'data/caduceus_om3films_d14f4e3.json',
              'split_from': 'look', 'wb_from': 'look', 'curves': True, 'ident_sectors': 8},
+    # v1.2 + per-film Color Mix (caduceus-om3 v0.30 mx_go) in the camera's colour-matrix stage.
+    'v1.3': {'source': 'src/films_v1_3.s', 'looks': 'data/caduceus_om3films_d14f4e3.json',
+             'split_from': 'look', 'wb_from': 'look', 'curves': True, 'ident_sectors': 8, 'mix': True},
 }
 
 
@@ -153,6 +168,20 @@ def split_record(split, st_k):
     return struct.pack('<6h', *out)
 
 
+def mix_matrix(v):
+    """caduceus-om3 research/colourmix/model.py: [h R, s R, h G, s G, h B, s B] (-7..7) -> 3 x 3 rows, 256 = 1.0."""
+    if len(v) != 6 or any(not -7 <= x <= 7 or x != int(x) for x in v):
+        raise ValueError(f'mix {v} is not 6 integers in -7..7')
+    m = [[0] * 3 for _ in range(3)]
+    for j in range(3):
+        h, s = v[2 * j], v[2 * j + 1]
+        m[(j + 1) % 3][j] = MIX_UNIT * (h - s)
+        m[(j + 2) % 3][j] = MIX_UNIT * (-h - s)
+    for i in range(3):
+        m[i][i] = 256 - sum(m[i][c] for c in range(3) if c != i)
+    return m
+
+
 def tdiv(a, b):
     """The CPU's div: truncates toward zero."""
     q = abs(a) // abs(b)
@@ -193,6 +222,7 @@ def tables(release, films, looks, split_data, color_records):
     st_k = split_data['st_k_per_step_RGB']
     wb, vals, bw, ks, names, wb_shift, curve_idx, curve_tab = (bytearray(), bytearray(), bytearray(), bytearray(),
                                                                [], [], bytearray(), bytearray())
+    mix_idx, mix_tab = bytearray(), bytearray()
     for film in films:
         look = by_name[film['name']]
         lwb = look.get('wb') or {'a_b': 0, 'g_m': 0}
@@ -216,6 +246,12 @@ def tables(release, films, looks, split_data, color_records):
             curve_tab += b''.join(curve_block(rgb.get(c, [0] * 5)) for c in 'rgb')
         else:
             curve_idx.append(255)
+        mix = look.get('mix') if cfg.get('mix') else None
+        if mix and any(mix):
+            mix_idx.append(len(mix_tab) // 18)
+            mix_tab += struct.pack('<9h', *[x for row in mix_matrix(mix) for x in row])
+        else:
+            mix_idx.append(255)
     n = cfg['ident_sectors'] // 2
     idents = [bytes(vals[i * 21:i * 21 + n]) for i in range(len(films))]
     if len(set(idents)) != len(idents):
@@ -224,7 +260,8 @@ def tables(release, films, looks, split_data, color_records):
         raise ValueError(f'A film with all-zero sectors 1-{2 * n} would match a plain COLOR 3')
     return {'wb': bytes(wb), 'vals': bytes(vals), 'bw': bytes(bw), 'k': bytes(ks), 'names': names,
             'wb_shift': wb_shift, 'color_records': color_records, 'curves': cfg['curves'],
-            'curve_idx': bytes(curve_idx), 'curve_tab': bytes(curve_tab)}
+            'curve_idx': bytes(curve_idx), 'curve_tab': bytes(curve_tab),
+            'mix': bool(cfg.get('mix')), 'mix_idx': bytes(mix_idx), 'mix_tab': bytes(mix_tab)}
 
 
 def data_source(t, nfilms):
@@ -248,6 +285,9 @@ def data_source(t, nfilms):
     if t['curves']:
         lines += ['\t.global CV_IDX\nCV_IDX:', block(t['curve_idx']), '\t.balign 4,0xff',
                   '\t.global CV_TAB\nCV_TAB:', block(t['curve_tab'])]
+    if t['mix']:
+        lines += ['\t.global MX_IDX\nMX_IDX:', block(t['mix_idx']), '\t.balign 4,0xff',
+                  '\t.global MX_TAB\nMX_TAB:', block(t['mix_tab'])]
     return '\n'.join(lines) + '\n'
 
 
@@ -283,10 +323,11 @@ def assemble(release, main, spec, out, assembler, linker, objcopy):
     if ORIGIN + len(block) > REGION_END:
         raise ValueError(f'Films block {len(block)} B overruns the osd region')
     sym = symbols(str(Path(objcopy).with_name(Path(objcopy).name.replace('objcopy', 'nm'))), out / 'films.elf')
-    redirects = {address: redirect_bytes(address, kind, sym[name], tail) for address, kind, name, tail in REDIRECTS}
+    hooks = redirect_list(sym)
+    redirects = {address: redirect_bytes(address, kind, sym[name], tail) for address, kind, name, tail in hooks}
     (out / 'redirects.json').write_text(json.dumps(
         {hex(a): {'kind': k, 'symbol': n, 'target': hex(sym[n]), 'bytes': redirects[a].hex()}
-         for a, k, n, _ in REDIRECTS}, indent=1) + '\n')
+         for a, k, n, _ in hooks}, indent=1) + '\n')
     return block, t, redirects
 
 
@@ -308,11 +349,18 @@ def write_spec(spec, release, block, t, path, main, redirects):
                               + (' + RGB curves' if t['curves'] else '') + ' (section 5, former osd handler body)')
     rows = {int(r['address'], 16): r for r in new['main_ranges']}
     for address, data in redirects.items():
-        row = rows[address]                      # every redirect is an existing range of the same length
+        if address not in rows:                  # a hook new in this release (v1.3: Color Mix)
+            at = address - CPU_BASE
+            rows[address] = {'name': f'films_mix_{address:08x}', 'feature': 'films_mix', 'address': hex(address),
+                             'bytes': len(data), 'before_sha256': sha(bytes(main[at:at + len(data)])),
+                             'purpose': f'v1.3: matrix stage row-scaler call at {hex(address)} -> jmp mx_go'}
+            new['main_ranges'].append(rows[address])
+        row = rows[address]                      # every redirect is a range of the same length
         if row['bytes'] != len(data):
             raise ValueError(f'redirect {hex(address)}: {len(data)} B, range has {row["bytes"]}')
         row['after'] = data.hex()
         row['after_sha256'] = sha(data)
+    new['main_ranges'].sort(key=lambda r: int(r['address'], 16))
     path.write_text(json.dumps(new, indent=1) + '\n')
 
 
@@ -337,7 +385,8 @@ def main():
         ap.exit(1, f'Assemble failed: {error}\n')
     report = {'release': a.release, 'bytes': len(block), 'sha256': sha(block), 'end': hex(ORIGIN + len(block)),
               'region_left': REGION_END - ORIGIN - len(block),
-              'films_with_curves': sum(1 for x in t['curve_idx'] if x != 255) if t['curves'] else 0}
+              'films_with_curves': sum(1 for x in t['curve_idx'] if x != 255) if t['curves'] else 0,
+              'films_with_mix': sum(1 for x in t['mix_idx'] if x != 255) if t['mix'] else 0}
     if a.check:
         want = next(r for r in spec['main_ranges'] if r['address'] == hex(ORIGIN))
         expected = bytes.fromhex(want['after'])
