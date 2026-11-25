@@ -21,6 +21,8 @@ from penf_landmarks import BASE, MAIN_SHA256
 
 ROOT = Path(__file__).resolve().parents[1]
 ENGINE = ROOT / 'toolchains/mn103-gnu-build/penf-mn103'
+if not ENGINE.is_file() and ENGINE.with_suffix('.exe').is_file():  # Windows (MSYS2) build
+    ENGINE = ENGINE.with_suffix('.exe')
 IMAGE = ROOT / 'analysis/penf_3.1/00_0100_403a0020.decoded.bin'
 REGISTERS = ['d0', 'd1', 'd2', 'd3', 'a0', 'a1', 'a2', 'a3', 'sp', 'pc',
              'mdr', 'psw', 'lir', 'lar', 'mdrq'] + [f'extra{i}' for i in range(15, 32)]

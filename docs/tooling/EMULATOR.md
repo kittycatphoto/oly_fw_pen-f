@@ -20,13 +20,22 @@ build dependencies are required. IDA and Wine are not needed. The builder
 performs no downloads and installs nothing outside `toolchains/`.
 
 Obtain the [pinned upstream archive](https://gnu.googlesource.com/binutils-gdb/+archive/87ffb882e0f4d73401a0746177ffabb8e8bbe4ac.tar.gz).
-Required SHA-256:
-`a5e7cd02f844bb2873c25e0ac8e9a5b50a72c3e8e6570a6b7821d2e4c21178ad`.
-Then run from the repository root:
+googlesource regenerates this archive on every download (its gzip and tar
+timestamps change), so a fresh copy will not have the originally recorded
+SHA-256 `a5e7cd02f844bb2873c25e0ac8e9a5b50a72c3e8e6570a6b7821d2e4c21178ad`.
+The builder accepts either that file or any archive whose files rebuild the
+pinned commit's git tree, `059d50a3cc76bd13dc10f21023863674e6da515c` (every
+file byte-identical to commit `87ffb882`), and records which check passed in
+`toolchains/mn103-gnu-src/.penf-source.json`. Then run from the repository root:
 
 ```bash
 python3 tools/build_mn103_emulator.py --archive /path/to/binutils-gdb-87ffb882.tar.gz
 ```
+
+On Windows, build inside MSYS2 with its POSIX Python (`/usr/bin/python3`, packages
+`base-devel gcc python`), which can run `configure`; the result is
+`penf-mn103.exe`. The probes then run under Windows Python with
+`C:\msys64\usr\bin` on `PATH` (for `msys-2.0.dll`).
 
 The first run verifies and extracts the archive. The preparation tool saves
 verified pristine MN103 sources inside the extracted tree and applies the

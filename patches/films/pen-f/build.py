@@ -45,7 +45,8 @@ def build(args):
     args.out = args.out.resolve()
     require(HERE not in args.out.parents and args.out != HERE, 'Keep generated output outside the patch source directory')
     require(not args.out.exists(), 'Output directory must be new')
-    spec = json.loads((HERE / 'patch.json').read_text())
+    spec = json.loads((args.spec or HERE / 'patch.json').read_text())
+    tested = 'package_sha256' in spec   # a camera-tested spec pins its main and package; a new build records them
     require(sha(args.stock.read_bytes()) == spec['stock_sha256'],
             'Wrong stock firmware hash; requires full PEN-F 3101 container')
     toolchain = ROOT / 'toolchains/mn103-patch-build'
@@ -80,12 +81,14 @@ def build(args):
         at, data = int(row['address'], 16) - cpu, bytes.fromhex(row['after'])
         require(len(data) == row['bytes'] and sha(data) == row['after_sha256'], f'Patch bytes differ: {row["name"]}')
         main[at:at + len(data)] = data
-    require(sha(main) == spec['main_sha256'], 'Decoded main differs from reference')
+    if tested:
+        require(sha(main) == spec['main_sha256'], 'Decoded main differs from reference')
 
     # 3. Re-encode; the OSD component is HSL's, unchanged.
     package = reconstruct([replace_payload(blocks[0], main), blocks[1]])
-    require(len(package) == spec['package_bytes'] and sha(package) == spec['package_sha256'],
-            'Package differs from the tested build')
+    require(len(package) == spec['package_bytes'], 'Package size differs from the base layout')
+    if tested:
+        require(sha(package) == spec['package_sha256'], 'Package differs from the tested build')
     verified = parse(package)
     require(verified[0].payload == main and verified[1].payload == blocks[1].payload, 'Container round trip failed')
     require(sha(verified[1].payload) == spec['osd_sha256'], 'OSD differs from HSL')
@@ -102,7 +105,8 @@ def build(args):
               'restore_sha256': sha(restore), 'main_sha256': sha(main), 'package_bytes': len(package),
               'patch_ranges': len(ranges),
               'main_changed_bytes_vs_hsl': sum(a != b for a, b in zip(main, blocks[0].payload)),
-              'exact_tested_build_match': True,
+              'exact_tested_build_match': tested,
+              'camera_tested': tested,
               'source_sha256': {str(p.relative_to(HERE)): sha(p.read_bytes()) for p in sorted(HERE.rglob('*'))
                                 if p.is_file() and '__pycache__' not in p.parts},
               'camera_access': False}
@@ -115,6 +119,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--stock', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--spec', type=Path, help='patch spec (default: the camera-tested patch.json, v1.1)')
     parser.add_argument('--as', dest='assembler')
     parser.add_argument('--ld', dest='linker')
     parser.add_argument('--objcopy')

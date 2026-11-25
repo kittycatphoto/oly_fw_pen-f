@@ -1,4 +1,4 @@
-# PEN-F films v1.1 source (Caduceus-style film looks)
+# PEN-F films v1.1 / v1.2 source (Caduceus-style film looks)
 
 This builds the **films-v1.1-20261119** firmware from official PEN-F 3.1 build 3101. It is the
 [HSL + Live ND + AF Limiter](../../live-nd-af-limiter/pen-f/README.md) firmware with the Overlay fix, plus film
@@ -30,8 +30,33 @@ The firmware still displays version 3.1. The design, every hook address and the 
 | Boot, live view, burst, Live ND 4f / 8f | camera-tested (v1.1) |
 | RAW Data Edit, Live ND or burst on a film | not tested |
 
-A v1.2 (RGB curves, Color Mix, films updated to caduceus's current looks) was built and passed the emulator checks
-and the updater preflight, but was never installed; it is not in this package.
+A first v1.2 (RGB curves, Color Mix, films updated to caduceus's current looks) was built on 2026-11-20 but never
+installed; its source was lost with the computer it was on. It has been rebuilt (below) without Color Mix.
+
+## v1.2 (rebuilt 2026-11-25, not camera-tested)
+
+v1.1 plus:
+
+- **RGB curves per film**: caduceus-om3 v0.30 `cv_prm` / `cv_d` (5 points per channel, -7..+7 steps of 48 on the 12-bit
+  table, monotone cubic), added in the same per-entry pass as split toning, as caduceus's `st_all`:
+  `t' = clamp(t + split(t) + D(t))`, kept rising. The build precomputes each channel's block (Y[5], A[4], B[4]); the
+  camera evaluates the cubic. 10 of the 19 films have curves.
+- **Films regraded** to caduceus-om3's current looks (`data/caduceus_om3films_d14f4e3.json`, main `d14f4e3`,
+  2026-11-24): colours, tones, WB shift, Blacks / Whites (Whites now used) and split toning, all from the look data.
+- **Recognition from saturation sectors 1-8** (was 1-4). With the current grades, sectors 1-4 are shared by three
+  pairs of films (Portra 800 / Fuji C200, Ultramax 400 / CineStill 400D, ColorPlus 200 / Astia 100F), and sectors 1-6
+  are all zero for Portra 800, which would match a plain COLOR 3. Sectors 1-8 are unique and never all zero. Editing
+  any of sectors 1-8 on a film makes it COLOR 3's own look again.
+
+**Not in v1.2: Color Mix.** caduceus puts a 3x3 matrix into the camera's colour-matrix stage (OM-3 v0.30, E-P7
+v0.34). The PEN-F counterpart of that stage has not been found yet.
+
+| v1.2 check | Result |
+| --- | --- |
+| `checks.py`: fl_match, fl_ident, wb_get, st_bend, st_join, tn_tone run natively, every output bit-exact with an independent model of caduceus's maths; curve blocks equal caduceus `research/rgbcurves/model.py` for every t | pass (a corrupted curve byte fails st_bend and st_join) |
+| `gate.py`: startup-safety gate | pass (v1.1 passes as calibration) |
+| `preflight.py`: stock updater, SD and USB-check modes, SD client / service chain, restore | pass (v1.1 passes as calibration) |
+| Camera | not tested |
 
 ## Build
 
@@ -52,15 +77,38 @@ component. The OSD component is HSL's, unchanged. The output must equal the came
   44,433,408 bytes.
 - `restore-stock/DCOLYMP/E1229999.BIN`: stock main + OSD (`e13f9813…f26a`), the same restore as HSL.
 
+Build v1.2 from the committed spec (or regenerate the spec with `assemble.py`, below):
+
+```bash
+python3 patches/films/pen-f/build.py --spec patches/films/pen-f/patch-v1.2.json   --stock /path/to/OLY_E_122_3101_0000_0000.BIN --out generated/pen-f-films-v1.2
+```
+
+## Assembling and checking the films block
+
+`assemble.py` is the step that turns the source and the look data into the films block (it replaces the private
+build used up to v1.1). With `--release v1.1 --check` its output equals the camera-tested block byte for byte. It
+needs the decoded main of the HSL base package (from `build.py`'s `base-hsl/`) for the three stock COLOR records.
+
+```bash
+python3 patches/films/pen-f/assemble.py --release v1.2 --main hsl-main.bin --out generated/asm-v1.2   --spec-out patches/films/pen-f/patch-v1.2.json
+python3 patches/films/pen-f/checks.py --release v1.2 --block generated/asm-v1.2 --caduceus ../caduceus-om3
+python3 patches/films/pen-f/gate.py --package generated/pen-f-films-v1.2/install/DCOLYMP/E1229999.BIN   --base generated/pen-f-films-v1.2/base-hsl/install/DCOLYMP/E1229999.BIN --spec patches/films/pen-f/patch-v1.2.json
+python3 patches/films/pen-f/preflight.py --package generated/pen-f-films-v1.2/install/DCOLYMP/E1229999.BIN   --restore generated/pen-f-films-v1.2/restore-stock/DCOLYMP/E1229999.BIN
+```
+
+`checks.py` and `preflight.py` need the [MN103 emulator](../../../docs/tooling/EMULATOR.md).
+
 ## Files
 
 - `patch.json`: the 71 ranges (Live ND, AF Limiter and Overlay fix as in the base firmware, plus the films). New
   bytes are this project's own code, tables and redirects; original firmware bytes are recorded only as hashes.
-- `src/films_v1_1.s`: the films code (MN103 assembly) in the reclaimed `osd` debug-shell handler region of section 5
-  (`0x60a79ce0`..), assembled with the film tables by the author's private build; the `osd` block in `patch.json`
-  is its output.
-- `data/`: the film looks (caduceus-om3 v0.26.2 Look Lab data) and the split-toning colour table (caduceus-om3
-  `st_k`), Apache-2.0; see [the NOTICE](../../../LICENSES/caduceus-om3-NOTICE.txt).
+- `patch-v1.2.json`: the v1.2 spec written by `assemble.py` (not camera-tested, so it pins no package hash).
+- `src/films_v1_1.s`, `src/films_v1_2.s`: the films code (MN103 assembly) in the reclaimed `osd` debug-shell handler
+  region of section 5 (`0x60a79ce0`..).
+- `assemble.py`, `checks.py`, `gate.py`, `preflight.py`: assemble the block, emulator checks, startup-safety gate,
+  updater preflight.
+- `data/`: the film looks (caduceus-om3 v0.26.2 for v1.1, main `d14f4e3` for v1.2) and the split-toning colour
+  table (caduceus-om3 `st_k`), Apache-2.0; see [the NOTICE](../../../LICENSES/caduceus-om3-NOTICE.txt).
 
 ## Install and go back
 

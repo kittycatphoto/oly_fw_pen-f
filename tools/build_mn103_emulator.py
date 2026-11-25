@@ -20,6 +20,10 @@ SRC = ROOT / 'toolchains/mn103-gnu-src'
 BUILD = ROOT / 'toolchains/mn103-gnu-build'
 REVISION = '87ffb882e0f4d73401a0746177ffabb8e8bbe4ac'
 ARCHIVE_SHA256 = 'a5e7cd02f844bb2873c25e0ac8e9a5b50a72c3e8e6570a6b7821d2e4c21178ad'
+# googlesource regenerates the tar.gz (and the tar's timestamps) on every download, so a fresh copy never has
+# ARCHIVE_SHA256. Its files are still the commit's: the git tree hash rebuilt from the archive members must equal
+# the pinned commit's tree (upstream `git rev-parse 87ffb882^{tree}`).
+TREE = '059d50a3cc76bd13dc10f21023863674e6da515c'
 CONFIGURE = ['--target=mn10300-elf', '--disable-gdb', '--disable-gdbserver',
              '--disable-binutils', '--disable-gas', '--disable-ld', '--disable-gprof',
              '--disable-gprofng', '--disable-nls', '--disable-werror',
@@ -28,6 +32,41 @@ CONFIGURE = ['--target=mn10300-elf', '--disable-gdb', '--disable-gdbserver',
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def archive_tree(path):
+    """Git tree hash of a tar archive's files (modes 100644 / 100755 / 120000), computed without git."""
+    root = {}
+    with tarfile.open(path) as archive:
+        for member in archive:
+            if member.isdir():
+                continue
+            if not (member.isfile() or member.issym()):
+                raise ValueError(f'Unexpected archive member type: {member.name}')
+            name = member.name[2:] if member.name.startswith('./') else member.name
+            if member.issym():
+                data, mode = member.linkname.encode(), b'120000'
+            else:
+                data = archive.extractfile(member).read()
+                mode = b'100755' if member.mode & 0o111 else b'100644'
+            node = root
+            *dirs, leaf = name.split('/')
+            for part in dirs:
+                node = node.setdefault(part, {})
+            node[leaf] = (mode, hashlib.sha1(b'blob %d\0' % len(data) + data).digest())
+
+    def tree(node):
+        entries = []
+        for name, value in node.items():
+            if isinstance(value, dict):
+                entries.append((name + '/', b'40000', name, tree(value)))
+            else:
+                entries.append((name, value[0], name, value[1]))
+        body = b''.join(mode + b' ' + name.encode() + b'\0' + digest
+                        for _, mode, name, digest in sorted(entries, key=lambda e: e[0].encode()))
+        return hashlib.sha1(b'tree %d\0' % len(body) + body).digest()
+
+    return tree(root).hex()
 
 
 def run(args, log, cwd=BUILD):
@@ -45,14 +84,23 @@ def main():
     p.add_argument('--jobs', type=int, default=4)
     args = p.parse_args()
     if not (SRC / '.penf-source.json').is_file():
-        if not args.archive or sha(args.archive) != ARCHIVE_SHA256:
-            p.error('A fresh build requires the pinned upstream archive with matching SHA-256')
+        if not args.archive:
+            p.error('A fresh build requires the pinned upstream archive (--archive)')
+        archive_sha = sha(args.archive)
+        if archive_sha == ARCHIVE_SHA256:
+            verified = 'archive_sha256'
+        elif archive_tree(args.archive) == TREE:
+            verified = 'git_tree'
+        else:
+            p.error('Archive is neither the pinned file nor the pinned commit tree')
         SRC.mkdir(parents=True, exist_ok=True)
         with tarfile.open(args.archive) as archive:
             archive.extractall(SRC, filter='data')
-        (SRC / '.penf-source.json').write_text(json.dumps({'revision': REVISION, 'archive_sha256': ARCHIVE_SHA256}, indent=2)+'\n')
+        (SRC / '.penf-source.json').write_text(json.dumps(
+            {'revision': REVISION, 'tree': TREE, 'archive_sha256': archive_sha, 'verified_by': verified}, indent=2)+'\n')
     source = json.loads((SRC / '.penf-source.json').read_text())
-    if source['revision'] != REVISION or source['archive_sha256'] != ARCHIVE_SHA256:
+    if source['revision'] != REVISION or not (source['archive_sha256'] == ARCHIVE_SHA256
+                                              or source.get('tree') == TREE):
         p.error('Unexpected source provenance')
     subprocess.run([sys.executable, str(ROOT / 'tools/prepare_mn103_sim.py')], check=True)
     BUILD.mkdir(parents=True, exist_ok=True)
