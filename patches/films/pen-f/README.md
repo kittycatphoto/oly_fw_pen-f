@@ -31,7 +31,8 @@ The firmware still displays version 3.1. The design, every hook address and the 
 | Split toning (Superia green shadows, Portra toward cyan; no tint left on COLOR 2 / MONO after switching) | camera-tested (v1.1) |
 | Blacks / Whites, split-toning strength | emulator only (bit-exact with caduceus); the camera photos were taken under different light |
 | Boot, live view, burst, Live ND 4f / 8f | camera-tested (v1.1) |
-| RAW Data Edit, Live ND or burst on a film | not tested |
+| RAW Data Edit and Live ND on a film | camera-tested (v1.3, 2026-11-25); RAW Data Edit uses the film selected at the time of the edit |
+| Burst on a film, fast scrolling through the films, Whites, movie mode on a film | not tested |
 
 A first v1.2 (RGB curves, Color Mix, films updated to caduceus's current looks) was built on 2026-11-20 but never
 installed; its source was lost with the computer it was on. It has been rebuilt (below) without Color Mix.
@@ -69,6 +70,10 @@ v1.1 plus:
 | Camera (v1.2-r2, 2026-11-25, 7 RAW+JPEG shots) | boots; films picked; the three confusable pairs recognised apart; WB shift added to the user's fine-tune, contrast and sharpness recorded right in every ORF; on a colour chart, Blacks lift (Portra 800, Ultramax 400), Portra 800's split toning (cooler shadows, warmer highlights) and Fuji C200's red curve shape are visible. Whites, exact strengths and sections 2 / 5 / 6 of TESTS-v1.2.md not yet tested |
 
 ## v1.3 (built and camera-tested 2026-11-25)
+
+Still open on the camera: a burst of 20+ on a curve film (curves add a cubic per table entry to each COLOR pass),
+fast scrolling through the films, Whites, and movie mode on a film (caduceus-om3 restricts its mix and curves to photo
+modes after a video freeze; our split, curve and mix hooks have no video test).
 
 v1.2-r2 plus **Color Mix** per film (caduceus-om3 v0.30 `mx_go`, `colourmix.inc`). The hook is the matrix stage
 `0x604f45a6`'s last call, the row scaler `0x604f4418` at `0x604f4649` (5 B, now `jmp mx_go`), the PEN-F counterpart
